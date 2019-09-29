@@ -172,6 +172,14 @@ CREATE TABLE `center` (
   PRIMARY KEY (`center_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table list all the remote sites for the organization\n';
 
+INSERT INTO `center` (`center_id`, `center_name`, `code`, `start_date`, `end_date`, `is_active`, `created_by`, `created_date`, `last_modified_date`, `last_modified_by`) VALUES
+(1,	'Kiserian CDC',	'KE0240',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(2,	'Machakos CDC',	'KE0765',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(3,	'Kilifi CDC',	'KE0340',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(4,	'Mombasa CDC',	'KE0345',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(5,	'Jinja CDC',	'UG0211',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(6,	'Kampala CDC',	'UG0721',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(7,	'Cape CDC',	'HT0422',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1);
 
 CREATE TABLE `center_bank` (
   `center_bank_id` int(100) NOT NULL AUTO_INCREMENT,
@@ -203,6 +211,11 @@ CREATE TABLE `center_group` (
   PRIMARY KEY (`center_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `center_group` (`center_group_id`, `name`, `group_level`, `role_id`, `created_date`, `last_modified_date`, `created_by`, `last_modified_by`, `deleted_date`) VALUES
+(1,	'Cluster',	1,	1,	'2019-09-27',	'2019-09-27',	1,	1,	NULL),
+(2,	'Region',	2,	2,	'2019-09-27',	'2019-09-27',	1,	1,	NULL),
+(3,	'Area',	3,	3,	'2019-09-27',	'2019-09-27',	1,	1,	NULL),
+(4,	'Global',	4,	4,	'2019-09-27',	'2019-09-27',	1,	1,	NULL);
 
 CREATE TABLE `center_group_link` (
   `center_group_link_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -222,6 +235,8 @@ CREATE TABLE `center_group_link` (
   CONSTRAINT `fk_center_group_link_center_group1` FOREIGN KEY (`center_group_id`) REFERENCES `center_group` (`center_group_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `center_group_link` (`center_group_link_id`, `center_id`, `center_group_id`, `user_id`, `created_date`, `last_modified_date`, `deleted_date`, `created_by`, `last_modified_by`, `center_group_link_name`) VALUES
+(1,	1,	1,	1,	'2019-09-27',	'2019-09-27',	NULL,	1,	1,	'Central Cluster');
 
 CREATE TABLE `center_project_allocation` (
   `center_project_allocation_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -560,6 +575,15 @@ CREATE TABLE `setting` (
   PRIMARY KEY (`setting_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `setting` (`setting_id`, `type`, `description`, `created_date`, `last_modified_date`, `deleted_date`, `created_by`, `last_modified_by`) VALUES
+(1,	'system_name',	'Staff Recognition System',	NULL,	NULL,	NULL,	NULL,	NULL),
+(2,	'system_title',	'Staff Recognition',	NULL,	NULL,	NULL,	NULL,	NULL),
+(3,	'address',	'1945 Nairobi',	NULL,	NULL,	NULL,	NULL,	NULL),
+(4,	'phone',	'254711808071',	NULL,	NULL,	NULL,	NULL,	NULL),
+(7,	'system_email',	'support@compassionkenya.com',	NULL,	NULL,	NULL,	NULL,	NULL),
+(9,	'language',	'english',	NULL,	NULL,	NULL,	NULL,	NULL),
+(10,	'text_align',	'left-to-right',	NULL,	NULL,	NULL,	NULL,	NULL),
+(14,	'skin_colour',	'blue',	NULL,	NULL,	NULL,	NULL,	NULL);
 
 CREATE TABLE `translation` (
   `translation_id` int(100) NOT NULL AUTO_INCREMENT,
@@ -682,4 +706,4 @@ CREATE TABLE `voucher_type_transaction_effect` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2019-09-29 11:45:28
+-- 2019-09-29 12:11:09
