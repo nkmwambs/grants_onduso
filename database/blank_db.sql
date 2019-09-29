@@ -576,8 +576,8 @@ CREATE TABLE `setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `setting` (`setting_id`, `type`, `description`, `created_date`, `last_modified_date`, `deleted_date`, `created_by`, `last_modified_by`) VALUES
-(1,	'system_name',	'Staff Recognition System',	NULL,	NULL,	NULL,	NULL,	NULL),
-(2,	'system_title',	'Staff Recognition',	NULL,	NULL,	NULL,	NULL,	NULL),
+(1,	'system_name',	'Grants Management System',	NULL,	NULL,	NULL,	NULL,	NULL),
+(2,	'system_title',	'Grants Management System',	NULL,	NULL,	NULL,	NULL,	NULL),
 (3,	'address',	'1945 Nairobi',	NULL,	NULL,	NULL,	NULL,	NULL),
 (4,	'phone',	'254711808071',	NULL,	NULL,	NULL,	NULL,	NULL),
 (7,	'system_email',	'support@compassionkenya.com',	NULL,	NULL,	NULL,	NULL,	NULL),
