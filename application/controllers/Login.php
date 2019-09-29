@@ -19,32 +19,15 @@ public $auth;
 
     function __construct() {
         parent::__construct();
-        $this->load->model('crud_model');
         $this->load->database();
-        $this->load->library('session');
-        //$this->auth = new \SimpleSAML\Auth\Simple('default-sp');
-        /* cache control */
-		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-		$this->output->set_header('Pragma: no-cache');
-		//$this->db->cache_on();
-		//$this->output->cache(60);
-		$this->db->cache_delete_all();
     }
 
     //Default function, redirects to logged in user area
     public function index() {
 
-        if ($this->session->userdata('user_login') == 1 && !$this->session->first_login_attempt) {
-        	redirect(base_url() . 'surveys/nominate', 'refresh');
-        }elseif($this->session->first_login_attempt){
-        	redirect(base_url() . 'account/manage_profile', 'refresh');
-        }
+        if ($this->session->userdata('user_login') == 1) echo "Success";
 
-        if($this->session->sso_login == 1){
-          $this->logout();
-        }else{
-          $this->load->view('backend/login');
-        }
+        $this->load->view('general/login');
 
     }
 
@@ -68,23 +51,6 @@ public $auth;
         echo json_encode($response);
     }
 
-  function SingleSignOnService(){
-    //if (!$this->auth->isAuthenticated()) {
-        //redirect(base_url().'login', 'refresh');
-    //}else{
-
-      //$attributes = $this->auth->getAttributes();
-
-      $this->session->set_userdata('sso_login', '1');
-
-      if($this->validate_login($_POST['email']) == 'success'){
-
-        redirect(base_url().'login', 'refresh');
-
-      }
-    //}
-
-  }
 
 	function create_user_session ($row,$first_login_attempt = false){
 			//$row = $query->row();
@@ -118,36 +84,16 @@ public $auth;
     //Validating login from ajax request
     function validate_login($email = '', $password = '') {
         $credential = array('email' => $email,"auth"=>1,"password"=>md5($password),'first_login_attempt'=>0);
-      if($this->session->sso_login == '1'){
-          $credential = array('email' => $email,"auth"=>1);
-      }
-
-
 
         // Checking login credential for admin
         $query = $this->db->get_where('user', $credential);
 
         if ($query->num_rows() > 0) {
-			$row = $query->row();
-		  	return $this->create_user_session($row);
+			        $row = $query->row();
+		  	      return $this->create_user_session($row);
 
-        }else{
-
-			$split_email = explode("@", $email);
-
-        	$query = $this->db->get_where('user', array('email'=>$email,'first_login_attempt'=>1));
-
-			if($query->num_rows() > 0 && strtolower($split_email[0]) == strtolower($password)){
-				$row = $query->row();
-				return $this->create_user_session($row,true);
-			}
         }
 
-		/**
-		 * If the if conditions above are not met, the method returns invalid back to the calling
-		 * ajax method bound to the key $login_status = invalid
-		 * Invalid success returns to the login page.
-		 **/
         return 'invalid';
     }
 

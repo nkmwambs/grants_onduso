@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Field extends CI_Model
+class Journal_model extends CI_Model
 {
 
   function __construct(){

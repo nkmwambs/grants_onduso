@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Bank extends MY_Model
+class Bank_model extends MY_Model
 {
   public $table = 'bank'; // you MUST mention the table name
   public $primary_key = 'bank_id'; // you MUST mention the primary key

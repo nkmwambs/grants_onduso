@@ -8,10 +8,10 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval extends MY_Model
+class Voucher_model extends MY_Model
 {
-  public $table = 'approval'; // you MUST mention the table name
-  public $primary_key = 'approval_id'; // you MUST mention the primary key
+  public $table = 'voucher'; // you MUST mention the table name
+  public $primary_key = 'voucher_id'; // you MUST mention the primary key
   public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
   public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 
@@ -21,18 +21,8 @@ class Approval extends MY_Model
 
   }
 
-  function index(){}
+  function index(){
 
-  function list($filter = "", $filter_value = ""){
-    //Approvals by item e.g. requests, vouchers, budget
-
-    //Approvals by status
-
-    //Approvals by approver
-
-    //approvals by role
   }
-
-
 
 }

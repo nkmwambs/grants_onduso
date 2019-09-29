@@ -8,10 +8,10 @@
  *	NKarisa@ke.ci.org
  */
 
-class Field extends MY_Model
+class Request_model extends MY_Model
 {
-  public $table = 'custom_field'; // you MUST mention the table name
-  public $primary_key = 'custom_field_id'; // you MUST mention the primary key
+  public $table = 'request'; // you MUST mention the table name
+  public $primary_key = 'request_id'; // you MUST mention the primary key
   public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
   public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 

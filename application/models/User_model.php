@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class User extends MY_Model
+class User_model extends MY_Model
 {
   public $table = 'user'; // you MUST mention the table name
   public $primary_key = 'user_id'; // you MUST mention the primary key
@@ -23,6 +23,20 @@ class User extends MY_Model
 
   function index(){
 
+  }
+
+  function get_user_priviledges(){
+
+    $user_id = $this->session->user_id;
+
+    //Get current/logged in user priviledges
+    $this->db->join('user_access_level','user_access_level.user_access_level_id=user_priviledge.user_access_level_id');
+    $arr = $this->db->get_where('user_priviledge',array('user_id'=>$user_id))->result_object();
+
+    $user_session_priviledges = array_column($arr,'controller_method');
+
+    $this->session->set_userdata('user_priviledges',$user_session_priviledges);
+    //return $user_session_priviledges;
   }
 
 }

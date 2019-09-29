@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Workplan extends CI_Model
+class Field_model extends CI_Model
 {
 
   function __construct(){

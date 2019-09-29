@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Report extends CI_Model
+class Workplan_model extends CI_Model
 {
 
   function __construct(){
