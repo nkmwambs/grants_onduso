@@ -705,5 +705,19 @@ CREATE TABLE `voucher_type_transaction_effect` (
   PRIMARY KEY (`voucher_type_transaction_effect_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `user_access_level` (
+  `user_access_level_id` int(11) NOT NULL AUTO_INCREMENT,
+  `controller_method` varchar(100) NOT NULL,
+  PRIMARY KEY (`user_access_level_id`),
+  UNIQUE KEY `controller_method` (`controller_method`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `user_priviledge` (
+  `user_priviledge_id` int(100) NOT NULL AUTO_INCREMENT,
+  `user_access_level_id` int(100) NOT NULL,
+  `user_id` int(100) NOT NULL,
+  PRIMARY KEY (`user_priviledge_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- 2019-09-29 12:11:09
