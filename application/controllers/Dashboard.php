@@ -11,7 +11,7 @@ if (!defined('BASEPATH'))
  *	NKarisa@ke.ci.org
  */
 
-class Dashboard extends CI_Controller {
+class Dashboard extends CI_Controller implements CrudModelInterface {
 
 public $auth;
 
@@ -30,5 +30,20 @@ public $auth;
 
       $this->load->view('general/index',$page_data);
     }
+
+    function create(){}
+
+    function view(){}
+
+    function update(){}
+
+    function delete(){}
+
+    function list(){}
+
+    static function get_menu_list(){
+
+    }
+
 
 }

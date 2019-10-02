@@ -28,7 +28,7 @@ class Center extends MY_Controller implements CrudModelInterface
   function delete(){}
 
   function list(){}
-    
+
   static function get_menu_list(){
 
   }

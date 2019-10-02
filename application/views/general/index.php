@@ -24,7 +24,7 @@
 
 </head>
 <body class="page-body <?php if ($skin_colour != '') echo 'skin-' . $skin_colour;?> page-fade-only">
-	<div class="page-container sidebar-collapsed <?php if ($text_align == 'right-to-left') echo 'right-sidebar';?>" >
+	<div class="page-container horizontal-menu">
 		<?php include 'navigation.php';?>
 		<div class="main-content">
 
@@ -60,8 +60,7 @@
 		<?php //include 'chat.php';?>
 
 	</div>
+		<?php include 'includes_bottom.php';?>
     <?php include 'modal.php';?>
-    <?php include 'includes_bottom.php';?>
-    <!-- <script src="<?=base_url();?>assets/js/ci-custom-ajax.js"></script> -->
 </body>
 </html>

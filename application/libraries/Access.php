@@ -21,11 +21,12 @@ class Access{
 
     $user_priviledges = $this->CI->session->user_priviledges;
 
-    print_r($user_priviledges);
-    //if( !in_array(strtolower($controller_method),$user_priviledges) ){
-        //redirect(base_url()."login/access_denied_error", 'refresh');
-    //}
-
+    //print_r($user_priviledges);
+    if( !in_array(strtolower($controller_method),$user_priviledges) ){
+        redirect(base_url()."login/access_denied_error", 'refresh');
+    }
+    //return $user_priviledges;
 
   }
+
 }

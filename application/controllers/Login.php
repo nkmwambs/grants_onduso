@@ -20,6 +20,7 @@ public $auth;
     function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->model('user_model');
     }
 
     //Default function, redirects to logged in user area
@@ -58,6 +59,7 @@ public $auth;
 		    $this->session->set_userdata('user_login', '1');
 		    $this->session->set_userdata('user_id', $row->user_id);
 		    $this->session->set_userdata('name', $row->first_name.' '.$row->last_name);
+        $this->user_model->get_user_priviledges();
 
 			  return 'success';
 	}

@@ -17,7 +17,7 @@
  * @author Peter Prins
  */
 
-class MenuList {
+class Menu {
 
     /**
      * Codeigniter reference
@@ -33,7 +33,7 @@ class MenuList {
     // Construct
     function __construct() {
         // Get Codeigniter instance
-        $this->CI = get_instance();
+        $this->CI =& get_instance();
         $this->CI->EXT = ".php";
 
         // Get all controllers
@@ -127,5 +127,23 @@ class MenuList {
       }
 
         return $top_menu_items;
+    }
+
+    function navigation(){
+      $menus = $this->getMenuItems();
+
+      $nav = "";
+
+      foreach ($menus as $menu => $items) {
+          $nav .= '
+          <li class="">
+              <a href="'.base_url().strtolower($menu).'/list">
+                  <span>'.get_phrase($menu).'</span>
+              </a>
+          </li>
+          ';
+      }
+
+      return $nav;
     }
 }
