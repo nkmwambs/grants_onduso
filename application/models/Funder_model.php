@@ -35,4 +35,7 @@ class Funder_model extends MY_Model implements CrudModelInterface
     return $this->grants_model->list_query();
   }
 
+  function view(){
+    
   }
+}

@@ -8,12 +8,13 @@
  *	NKarisa@ke.ci.org
  */
 
-class Budget_library
+class Budget_library extends Grants
 {
 
   private $CI;
 
   function __construct(){
+    parent::__construct();
     $this->CI =& get_instance();
   }
 

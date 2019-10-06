@@ -34,4 +34,8 @@ class Budget_model extends MY_Model
     return $this->db->get('budget')->result_array();
   }
 
+  function view(){
+    
+  }
+
 }

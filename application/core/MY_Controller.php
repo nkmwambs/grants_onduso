@@ -4,16 +4,18 @@ class MY_Controller extends CI_Controller implements CrudModelInterface
 {
 
   private $list_result;
+  private $controller_library;
 
   function __construct(){
     parent::__construct();
-    $lib = $this->uri->segment(1, 0).'_library';
-    $this->load->library($lib);
+    $this->controller_library = $this->uri->segment(1, 0).'_library';
+    $this->load->library($this->controller_library);
   }
 
 
   function list_result(){
-      return $this->list_result = $this->grants->list_result();
+      $lib = $this->controller_library;
+      return $this->list_result = $this->$lib->list_result();
   }
 
   function list_page_name(){
@@ -53,5 +55,9 @@ class MY_Controller extends CI_Controller implements CrudModelInterface
 
     // Can be overrode in a specific controller
     $this->load_list_template($page_data);
+  }
+
+  function view(){
+
   }
 }

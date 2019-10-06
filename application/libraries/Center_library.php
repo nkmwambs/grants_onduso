@@ -8,12 +8,13 @@
  *	NKarisa@ke.ci.org
  */
 
-class Center_library
+class Center_library extends Grants
 {
 
   private $CI;
 
-  function __construct(){
+  function __construct
+    parent::__construct();
     $this->CI =& get_instance();
   }
 

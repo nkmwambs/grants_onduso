@@ -14,4 +14,6 @@ interface CrudModelInterface {
 
   public function list();
 
+  public function view();
+
 }

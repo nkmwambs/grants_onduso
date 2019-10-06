@@ -28,4 +28,8 @@ class Center_model extends MY_Model
   function list(){
     return $this->grants_model->list_query();
   }
+
+  function view(){
+    
+  }
 }

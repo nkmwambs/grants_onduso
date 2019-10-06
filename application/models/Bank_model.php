@@ -34,5 +34,7 @@ class Bank_model extends MY_Model
     return $this->db->get('bank')->result_array();
   }
 
-
+  function view(){
+    
+  }
 }

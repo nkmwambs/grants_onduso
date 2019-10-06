@@ -37,6 +37,8 @@ class Approval_model extends MY_Model implements CrudModelInterface
     return $this->grants_model->list_query($this->lookup_tables);
   }
 
-
+function view(){
+  
+}
 
 }
