@@ -25,4 +25,7 @@ class Request_model extends MY_Model
 
   }
 
+  function list(){
+    
+  }
 }

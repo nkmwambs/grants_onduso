@@ -21,27 +21,31 @@ class Grants_model extends CI_Model
 
   }
 
-  function list_query($table,$lookup_tables){
+  function list_query($lookup_tables = array()){
+    $table = strtolower($this->uri->segment(1));
     $table_columns = $this->grants->table_columns($table,$this->grants_model->set_hidden_columns());
     $this->db->select($table_columns);
 
-    foreach ($lookup_tables as $lookup_table) {
-        $lookup_table_id = $lookup_table.'_id';
-        $this->db->join($lookup_table,$lookup_table.'.'.$lookup_table_id.'='.$table.'.fk_'.$lookup_table_id);
+    if(count($lookup_tables) > 0 ){
+      foreach ($lookup_tables as $lookup_table) {
+          $lookup_table_id = $lookup_table.'_id';
+          $this->db->join($lookup_table,$lookup_table.'.'.$lookup_table_id.'='.$table.'.fk_'.$lookup_table_id);
+      }
     }
-    return $this->db->get('approval')->result_array();
+
+    return $this->db->get($table)->result_array();
   }
 
   function set_hidden_columns(){
     $controller = $this->uri->segment(1,0);
     $this->hidden_columns = array($controller.'_last_modified_date',$controller.'_created_date',
-    $controller.'_last_modified_by',$controller.'_created_by');
+    $controller.'_last_modified_by',$controller.'_created_by',$controller.'_deleted_at');
 
     return $this->hidden_columns;
   }
 
   function get_all_table_fields($table = 'approval'){
-    return $this->db->list_fields($table);
+    return $this->db->table_exists($table)?$this->db->list_fields($table):array();
 
   }
 

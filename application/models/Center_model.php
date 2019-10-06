@@ -26,6 +26,6 @@ class Center_model extends MY_Model
   }
 
   function list(){
-    return $this->db->get('center')->result_object();
+    return $this->grants_model->list_query();
   }
 }

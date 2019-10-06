@@ -199,8 +199,21 @@
 
   $(document).ready(function() {
       $('.datatable').DataTable({
-        dom:'blftrip',
-        'button':['csv','excel','pdf','print']
+        dom: 'lBfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
+        "pagingType": "full_numbers"
       });
   } );
   </script>
+
+<style>
+.dt-buttons{
+  margin-top:10px;
+
+}
+</style>

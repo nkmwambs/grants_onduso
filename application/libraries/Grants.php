@@ -64,18 +64,25 @@ function table_columns($table,$hidden_columns = array()){
 }
 
 function list_result(){
-  $model = $this->current_model;
+      $model = $this->current_model;
 
-  $result = $this->CI->$model->list();
-  $model = $this->current_model;
+      $result = $this->CI->$model->list();
+      $model = $this->current_model;
 
-  $table_array = array(
-    'table_header'=>$this->camel_case_header($this->controller,$this->CI->grants_model->set_hidden_columns()),
-    'table_body'=>$result
-  );
+      if(!$this->CI->db->table_exists($this->controller)){
+        $error_code['code'] = 1;
+        return $this->CI->load->view('templates/error',$error_code,true);
+      }else{
 
-  return $this->CI->load->view('templates/list',$table_array,true);
+        $table_array = array(
+          'table_header'=>$this->camel_case_header($this->controller,$this->CI->grants_model->set_hidden_columns()),
+          'table_body'=>$result
+        );
 
-}
+        return $this->CI->load->view('templates/list',$table_array,true);
+      }
+
+
+    }
 
 }

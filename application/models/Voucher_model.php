@@ -25,4 +25,8 @@ class Voucher_model extends MY_Model
 
   }
 
+  function list(){
+    
+  }
+
 }

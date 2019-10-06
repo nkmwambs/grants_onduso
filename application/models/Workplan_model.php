@@ -21,4 +21,8 @@ class Workplan_model extends CI_Model
 
   }
 
+  function list(){
+    
+  }
+
 }

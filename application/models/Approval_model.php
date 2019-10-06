@@ -34,7 +34,7 @@ class Approval_model extends MY_Model implements CrudModelInterface
   function list(){
     $table = "approval";
     $this->lookup_tables = array('approval_status','approveable_item');
-    return $this->grants_model->list_query($table,$this->lookup_tables);
+    return $this->grants_model->list_query($this->lookup_tables);
   }
 
 

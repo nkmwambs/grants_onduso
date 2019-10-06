@@ -7,15 +7,14 @@
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ajax-bootstrap-select.css"/>
 
 		<!--Datatables CSS CDNs-->
-		<link rel="stylesheet" href="z"/>
-		<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" /> -->
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
 		<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css"/>
 
 		<!--Jquery CDN Minified -->
-		<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 		<!--Datatables JS CDNs-->
-		<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 		<!--Bootstrap JS CDNs-->
 		<script src="<?php echo base_url();?>assets/js/bootstrap.js"></script>
@@ -49,8 +48,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
 
 <!--Local Scripts -->
-<link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
-<script src="<?=base_url();?>assets/js/jquery-1.11.0.min.js"></script>
+<!-- <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
+<script src="<?=base_url();?>assets/js/jquery-1.11.0.min.js"></script> -->
 
 <?php
     $skin_colour = $this->db->get_where('setting' , array(

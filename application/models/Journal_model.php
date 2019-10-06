@@ -21,4 +21,7 @@ class Journal_model extends CI_Model
 
   }
 
+  function list(){
+    
+  }
 }

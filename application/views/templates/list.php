@@ -30,6 +30,12 @@
 
 <hr/>
 
+<div class="row" style="margin-bottom:25px;">
+  <div class="col-xs-12" style="text-align:center;">
+    <button class="btn btn-default">Add <?=ucfirst($this->uri->segment(1,""));?></button>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-xs-12">
     <table class="table table-striped datatable">
@@ -57,6 +63,7 @@
         <?php
           $primary_key = 0;
           $primary_table = "";
+          if(isset($table_body)){
           foreach ($table_body as $td_array) {
         ?>
           <tr>
@@ -100,7 +107,10 @@
 
           </tr>
 
-        <?php } ?>
+        <?php
+              }
+          }
+        ?>
 
       </tbody>
     </table>

@@ -9,7 +9,7 @@
  */
 
 
-class Journal extends MY_Controller implements CrudModelInterface
+class Journal extends MY_Controller
 {
 
   function __construct(){
@@ -19,18 +19,16 @@ class Journal extends MY_Controller implements CrudModelInterface
 
   function index(){}
 
-  function create(){}
-
-  function view(){}
-
-  function update(){}
-
-  function delete(){}
-
-  function list(){}  
-
   static function get_menu_list(){
 
+  }
+
+  function list_page_name(){
+    return "journal";
+  }
+
+  function list_page_title(){
+    return "Journal";
   }
 
 }
