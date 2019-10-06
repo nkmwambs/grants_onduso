@@ -29,7 +29,7 @@
 		<div class="main-content">
 
 			<?php include 'header.php';?>
-				<hr />
+				
 					<div class="row">
 						<div class="col-xs-6">
 							<h3 style="" class="pull-left">

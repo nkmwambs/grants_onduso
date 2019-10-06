@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval_library
+class Budget_library
 {
 
   private $CI;

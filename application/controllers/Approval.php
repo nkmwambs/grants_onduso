@@ -9,16 +9,16 @@
  */
 
 
-class Approval extends MY_Controller implements CrudModelInterface
+class Approval extends MY_Controller 
 {
 
   function __construct(){
     parent::__construct();
-    $this->load->library('approval_library');
-
   }
 
-  function index(){}
+  function index(){
+
+  }
 
   function create(){}
 
@@ -28,15 +28,8 @@ class Approval extends MY_Controller implements CrudModelInterface
 
   function delete(){}
 
-  function list(){
-    $result = $this->approval_library->list();
-
-    $page_data['page_name'] = "list";
-    $page_data['page_title'] = 'list';
-    $page_data['views_dir'] = "approval";
-    $page_data['result'] = $result;
-
-    $this->load->view('general/index',$page_data);
+  function list_page_title(){
+    return "Listing";
   }
 
   static function get_menu_list(){

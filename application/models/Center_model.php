@@ -24,4 +24,8 @@ class Center_model extends MY_Model
   function index(){
 
   }
+
+  function list(){
+    return $this->db->get('center')->result_object();
+  }
 }

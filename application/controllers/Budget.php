@@ -24,9 +24,7 @@ class Budget extends MY_Controller implements CrudModelInterface
 
   function update(){}
 
-  function delete(){}
-
-  function list(){}  
+  function delete(){} 
 
   static function get_menu_list(){
 

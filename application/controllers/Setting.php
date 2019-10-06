@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Setting extends CI_Controller
+class Setting extends CI_Controller 
 {
 
   function __construct(){
@@ -17,6 +17,10 @@ class Setting extends CI_Controller
   }
 
   function index(){
+
+  }
+
+  static function get_menu_list(){
 
   }
 

@@ -36,6 +36,8 @@ class Menu {
         $this->CI =& get_instance();
         $this->CI->EXT = ".php";
 
+        $this->CI->load->model('menu_model');
+
         // Get all controllers
         $this->setControllers();
     }
@@ -121,7 +123,8 @@ class Menu {
       foreach($controllers as $controller => $methods){
         $interfaces = class_implements($controller);
 
-        if (isset($interfaces['CrudModelInterface']) && in_array('get_menu_list',$methods) ) {
+        //if (isset($interfaces['CrudModelInterface']) && in_array('get_menu_list',$methods) ) {
+        if (in_array('get_menu_list',$methods) ) {
             $top_menu_items[$controller] = $controller::get_menu_list();
         }
       }
@@ -129,8 +132,54 @@ class Menu {
         return $top_menu_items;
     }
 
-    function navigation(){
+    function set_menu_sessions(){
       $menus = $this->getMenuItems();
+
+      $sizeOfMenuItemsByController = count($menus);
+      $sizeOfMenuItemsByDatabase = $this->CI->menu_model->get_count_of_menu_items();
+
+      if($sizeOfMenuItemsByController !== $sizeOfMenuItemsByDatabase){
+          $this->CI->session->unset_userdata('user_menu');
+          $this->CI->session->unset_userdata('user_priority_menu');
+          $this->CI->session->unset_userdata('user_more_menu');
+
+          // Check if menu are there or insert
+          $this->CI->menu_model->upsert_menu($menus);
+      }
+
+      // Create a menu session
+      if(!$this->CI->session->user_menu){
+
+          // Check if logged user has any preferred menu order, if not create it
+          $user_menu_items =  $this->CI->menu_model->upsert_user_menu();
+
+          $full_user_menu =  elevate_array_element_to_key($user_menu_items,'menu_derivative_controller');
+
+          $user_menu_by_priority_groups = elevate_assoc_array_element_to_key($user_menu_items,'menu_user_order_priority_item');
+
+          $user_priority_menu = elevate_array_element_to_key($user_menu_by_priority_groups[1],'menu_derivative_controller');
+
+          $user_more_menu = elevate_array_element_to_key($user_menu_by_priority_groups[0],'menu_derivative_controller');
+
+
+          $this->CI->session->set_userdata('test_session',$user_menu_by_priority_groups);
+
+          $this->CI->session->set_userdata('user_menu',$full_user_menu);
+
+          $this->CI->session->set_userdata('user_priority_menu',$user_priority_menu);
+
+          $this->CI->session->set_userdata('user_more_menu',$user_more_menu);
+
+      }
+
+    }
+
+
+    function navigation(){
+
+      $this->set_menu_sessions();
+
+      $menus = $this->CI->session->user_priority_menu;
 
       $nav = "";
 
@@ -138,10 +187,35 @@ class Menu {
           $nav .= '
           <li class="">
               <a href="'.base_url().strtolower($menu).'/list">
-                  <span>'.get_phrase($menu).'</span>
+                  <span>'.get_phrase($items['menu_name']).'</span>
               </a>
           </li>
           ';
+      }
+
+      if(count($this->CI->session->user_more_menu) > 0 ){
+        $nav .= '
+          <li class="has-sub">
+              <a href="#">
+                  <span class="fa fa-plus"></span>
+              </a>
+              <ul>
+                ';
+
+                  foreach ($this->CI->session->user_more_menu as $user_menu => $user_menu_item) {
+                    $nav .= '
+                      <li>
+                        <a href="'.base_url().strtolower($user_menu).'/list">
+                          <span class="title">'.get_phrase($user_menu).'</span>
+                        </a>
+                      </li>
+                    ';
+                  }
+
+            $nav .='
+              </ul>
+          </li>
+        ';
       }
 
       return $nav;

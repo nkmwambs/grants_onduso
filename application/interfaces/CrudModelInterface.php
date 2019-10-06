@@ -2,15 +2,15 @@
 
 interface CrudModelInterface {
 
-  public function index();
+  //public function index();
 
-  public function create();
+  //public function create();
 
-  public function view();
+  //public function view();
 
-  public function update();
+  //public function update();
 
-  public function delete();
+  //public function delete();
 
   public function list();
 

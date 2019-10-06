@@ -98,16 +98,19 @@ INSERT INTO `approveable_item` (`approveable_item_id`, `approveable_item_name`, 
 DROP TABLE IF EXISTS `bank`;
 CREATE TABLE `bank` (
   `bank_id` int(100) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `swift_code` varchar(45) DEFAULT NULL,
-  `created_date` varchar(45) DEFAULT NULL,
-  `created_by` varchar(45) DEFAULT NULL,
-  `last_modified_date` varchar(45) DEFAULT NULL,
-  `last_modified_by` varchar(45) DEFAULT NULL,
-  `is_active` varchar(45) DEFAULT NULL,
+  `bank_track_number` varchar(100) DEFAULT NULL,
+  `bank_name` varchar(45) DEFAULT NULL,
+  `bank_swift_code` varchar(45) DEFAULT NULL,
+  `bank_is_active` int(5) DEFAULT NULL,
+  `bank_created_date` date DEFAULT NULL,
+  `bank_created_by` int(100) DEFAULT NULL,
+  `bank_last_modified_date` date DEFAULT NULL,
+  `bank_last_modified_by` int(100) DEFAULT NULL,
   PRIMARY KEY (`bank_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table list all the banks for centers';
 
+INSERT INTO `bank` (`bank_id`, `bank_track_number`, `bank_name`, `bank_swift_code`, `bank_is_active`, `bank_created_date`, `bank_created_by`, `bank_last_modified_date`, `bank_last_modified_by`) VALUES
+(1,	'BAK-87365',	'Commercial Bank of Kenya',	'2365',	NULL,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `bank_branch`;
 CREATE TABLE `bank_branch` (
@@ -127,18 +130,21 @@ CREATE TABLE `bank_branch` (
 
 DROP TABLE IF EXISTS `budget`;
 CREATE TABLE `budget` (
-  `budget_id` int(100) NOT NULL,
-  `center_id` int(100) DEFAULT NULL,
-  `budget_year` varchar(45) DEFAULT NULL,
-  `created_by` varchar(45) DEFAULT NULL,
-  `created_date` varchar(45) DEFAULT NULL,
-  `last_modified_by` varchar(45) DEFAULT NULL,
-  `last_modified_date` varchar(45) DEFAULT NULL,
+  `budget_id` int(100) NOT NULL AUTO_INCREMENT,
+  `budget_track_number` varchar(45) DEFAULT NULL,
+  `fk_center_id` int(100) DEFAULT NULL,
+  `budget_year` int(5) DEFAULT NULL,
+  `budget_created_by` int(100) DEFAULT NULL,
+  `budget_created_date` date DEFAULT NULL,
+  `budget_last_modified_by` int(100) DEFAULT NULL,
+  `budget_last_modified_date` date DEFAULT NULL,
   PRIMARY KEY (`budget_id`),
-  KEY `fk_budget_center1_idx` (`center_id`),
-  CONSTRAINT `fk_budget_center1` FOREIGN KEY (`center_id`) REFERENCES `center` (`center_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_budget_center1_idx` (`fk_center_id`),
+  CONSTRAINT `fk_budget_center1` FOREIGN KEY (`fk_center_id`) REFERENCES `center` (`center_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table holds the budget items by activity';
 
+INSERT INTO `budget` (`budget_id`, `budget_track_number`, `fk_center_id`, `budget_year`, `budget_created_by`, `budget_created_date`, `budget_last_modified_by`, `budget_last_modified_date`) VALUES
+(1,	'BGT-74846',	1,	2019,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `budget_detail`;
 CREATE TABLE `budget_detail` (
@@ -182,26 +188,27 @@ CREATE TABLE `budget_month_spread` (
 DROP TABLE IF EXISTS `center`;
 CREATE TABLE `center` (
   `center_id` int(100) NOT NULL AUTO_INCREMENT,
+  `center_track_number` varchar(100) DEFAULT NULL,
   `center_name` varchar(45) NOT NULL,
-  `code` varchar(10) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `is_active` int(5) NOT NULL DEFAULT '0',
-  `created_by` int(100) NOT NULL,
-  `created_date` date NOT NULL,
-  `last_modified_date` date NOT NULL,
-  `last_modified_by` int(100) NOT NULL,
+  `center_code` varchar(10) NOT NULL,
+  `center_start_date` date NOT NULL,
+  `center_end_date` date NOT NULL,
+  `center_is_active` int(5) NOT NULL DEFAULT '0',
+  `center_created_by` int(100) NOT NULL,
+  `center_created_date` date NOT NULL,
+  `center_last_modified_date` date NOT NULL,
+  `center_last_modified_by` int(100) NOT NULL,
   PRIMARY KEY (`center_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table list all the remote sites for the organization\n';
 
-INSERT INTO `center` (`center_id`, `center_name`, `code`, `start_date`, `end_date`, `is_active`, `created_by`, `created_date`, `last_modified_date`, `last_modified_by`) VALUES
-(1,	'Kiserian CDC',	'KE0240',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(2,	'Machakos CDC',	'KE0765',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(3,	'Kilifi CDC',	'KE0340',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(4,	'Mombasa CDC',	'KE0345',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(5,	'Jinja CDC',	'UG0211',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(6,	'Kampala CDC',	'UG0721',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
-(7,	'Cape CDC',	'HT0422',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1);
+INSERT INTO `center` (`center_id`, `center_track_number`, `center_name`, `center_code`, `center_start_date`, `center_end_date`, `center_is_active`, `center_created_by`, `center_created_date`, `center_last_modified_date`, `center_last_modified_by`) VALUES
+(1,	'CNT-97356',	'Kiserian CDC',	'KE0240',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(2,	'CNT-65378',	'Machakos CDC',	'KE0765',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(3,	'CNT-75637',	'Kilifi CDC',	'KE0340',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(4,	'CNT-65268',	'Mombasa CDC',	'KE0345',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(5,	'CNT-55473',	'Jinja CDC',	'UG0211',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(6,	'CNT-65370',	'Kampala CDC',	'UG0721',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1),
+(7,	'CNT-67653',	'Cape CDC',	'HT0422',	'2019-09-27',	'2019-09-27',	1,	1,	'2019-09-27',	'2019-09-27',	1);
 
 DROP TABLE IF EXISTS `center_bank`;
 CREATE TABLE `center_bank` (
@@ -496,6 +503,67 @@ CREATE TABLE `language_phrase` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu` (
+  `menu_id` int(100) NOT NULL AUTO_INCREMENT,
+  `menu_name` varchar(100) DEFAULT NULL,
+  `menu_derivative_controller` varchar(100) DEFAULT NULL,
+  `menu_created_date` date DEFAULT NULL,
+  `menu_last_modified_date` date DEFAULT NULL,
+  `menu_created_by` int(100) DEFAULT NULL,
+  `menu_last_modified_by` int(100) DEFAULT NULL,
+  PRIMARY KEY (`menu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `menu` (`menu_id`, `menu_name`, `menu_derivative_controller`, `menu_created_date`, `menu_last_modified_date`, `menu_created_by`, `menu_last_modified_by`) VALUES
+(1,	'Approval',	'Approval',	NULL,	NULL,	NULL,	NULL),
+(2,	'Bank',	'Bank',	NULL,	NULL,	NULL,	NULL),
+(3,	'Budget',	'Budget',	NULL,	NULL,	NULL,	NULL),
+(4,	'Center',	'Center',	NULL,	NULL,	NULL,	NULL),
+(5,	'Dashboard',	'Dashboard',	NULL,	NULL,	NULL,	NULL),
+(6,	'Field',	'Field',	NULL,	NULL,	NULL,	NULL),
+(7,	'Funder',	'Funder',	NULL,	NULL,	NULL,	NULL),
+(8,	'Journal',	'Journal',	NULL,	NULL,	NULL,	NULL),
+(9,	'Language',	'Language',	NULL,	NULL,	NULL,	NULL),
+(10,	'Message',	'Message',	NULL,	NULL,	NULL,	NULL),
+(11,	'Request',	'Request',	NULL,	NULL,	NULL,	NULL),
+(12,	'User',	'User',	NULL,	NULL,	NULL,	NULL),
+(13,	'Voucher',	'Voucher',	NULL,	NULL,	NULL,	NULL),
+(14,	'Workplan',	'Workplan',	NULL,	NULL,	NULL,	NULL),
+(15,	'Setting',	'Setting',	NULL,	NULL,	NULL,	NULL);
+
+DROP TABLE IF EXISTS `menu_user_order`;
+CREATE TABLE `menu_user_order` (
+  `menu_user_order_id` int(100) NOT NULL AUTO_INCREMENT,
+  `fk_user_id` int(100) DEFAULT NULL,
+  `fk_menu_id` int(100) DEFAULT NULL,
+  `menu_user_order_is_active` int(5) NOT NULL DEFAULT '1',
+  `menu_user_order_level` int(100) DEFAULT NULL,
+  `menu_user_order_priority_item` int(5) NOT NULL DEFAULT '1',
+  `menu_user_order_created_date` date DEFAULT NULL,
+  `menu_user_order_last_modified_date` date DEFAULT NULL,
+  `menu_user_order_created_by` int(100) DEFAULT NULL,
+  `menu_user_order_last_modified_by` int(100) DEFAULT NULL,
+  PRIMARY KEY (`menu_user_order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `menu_user_order` (`menu_user_order_id`, `fk_user_id`, `fk_menu_id`, `menu_user_order_is_active`, `menu_user_order_level`, `menu_user_order_priority_item`, `menu_user_order_created_date`, `menu_user_order_last_modified_date`, `menu_user_order_created_by`, `menu_user_order_last_modified_by`) VALUES
+(16,	1,	1,	1,	5,	1,	NULL,	NULL,	NULL,	NULL),
+(17,	1,	2,	1,	2,	0,	NULL,	NULL,	NULL,	NULL),
+(18,	1,	3,	1,	3,	1,	NULL,	NULL,	NULL,	NULL),
+(19,	1,	4,	1,	4,	0,	NULL,	NULL,	NULL,	NULL),
+(20,	1,	5,	1,	1,	1,	NULL,	NULL,	NULL,	NULL),
+(21,	1,	6,	1,	6,	0,	NULL,	NULL,	NULL,	NULL),
+(22,	1,	7,	1,	7,	1,	NULL,	NULL,	NULL,	NULL),
+(23,	1,	8,	1,	8,	1,	NULL,	NULL,	NULL,	NULL),
+(24,	1,	9,	1,	9,	0,	NULL,	NULL,	NULL,	NULL),
+(25,	1,	10,	1,	10,	1,	NULL,	NULL,	NULL,	NULL),
+(26,	1,	11,	1,	11,	1,	NULL,	NULL,	NULL,	NULL),
+(27,	1,	12,	1,	12,	0,	NULL,	NULL,	NULL,	NULL),
+(28,	1,	13,	1,	13,	1,	NULL,	NULL,	NULL,	NULL),
+(29,	1,	14,	1,	14,	1,	NULL,	NULL,	NULL,	NULL),
+(30,	1,	15,	1,	15,	0,	NULL,	NULL,	NULL,	NULL);
+
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE `message` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -699,17 +767,38 @@ CREATE TABLE `user_access_level` (
 
 INSERT INTO `user_access_level` (`user_access_level_id`, `controller_method`, `created_date`, `created_by`, `deleted_at`, `last_modified_date`, `last_modified_by`) VALUES
 (1,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(107,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(108,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(109,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(110,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(111,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(112,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(113,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(114,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(115,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(116,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
-(117,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL);
+(133,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(134,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(135,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(136,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(137,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(138,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(139,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(140,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(141,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(142,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(143,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(144,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(145,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(146,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(147,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(148,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(149,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(150,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(151,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(152,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(153,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(154,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(155,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(156,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(157,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(158,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(159,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(160,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(161,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(162,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(163,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL),
+(164,	'dashboard::index',	NULL,	NULL,	NULL,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `user_priviledge`;
 CREATE TABLE `user_priviledge` (
@@ -821,4 +910,4 @@ CREATE TABLE `voucher_type_transaction_effect` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
--- 2019-10-02 14:08:00
+-- 2019-10-06 20:07:54

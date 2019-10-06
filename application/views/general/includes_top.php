@@ -4,6 +4,8 @@
 		<!-- Bootstrap CDN -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ajax-bootstrap-select.css"/>
+
 		<!--Datatables CSS CDNs-->
 		<link rel="stylesheet" href="z"/>
 		<!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" /> -->
@@ -45,6 +47,10 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css">
+
+<!--Local Scripts -->
+<link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
+<script src="<?=base_url();?>assets/js/jquery-1.11.0.min.js"></script>
 
 <?php
     $skin_colour = $this->db->get_where('setting' , array(

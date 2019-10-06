@@ -8,17 +8,8 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval_library
+class Dashboard_model extends CI_Model
 {
 
-  private $CI;
-
-  function __construct(){
-    $this->CI =& get_instance();
-  }
-
-  function index(){
-
-  }
 
 }

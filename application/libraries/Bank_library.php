@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval_library
+class Bank_library
 {
 
   private $CI;
@@ -18,6 +18,19 @@ class Approval_library
   }
 
   function index(){
+
+  }
+
+  function list(){
+
+    $result = $this->CI->Bank_model->list();
+
+    $table_array = array(
+      'table_header'=>$this->CI->general_library->camel_case_header('bank',$this->CI->Bank_model->hidden_columns),
+      'table_body'=>$result
+    );
+
+    return $this->CI->load->view('templates/list',$table_array,true);
 
   }
 

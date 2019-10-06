@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval_library
+class Center_library
 {
 
   private $CI;

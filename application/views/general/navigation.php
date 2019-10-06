@@ -9,7 +9,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 			<!-- logo -->
 			<div class="navbar-brand">
 				 <a href="<?php echo base_url(); ?>">
-	                <img src="uploads/logo.png"  style="max-height:20px;"/>
+	                <img src="<?=base_url();?>uploads/logo.png"  style="max-height:20px;"/>
 	            </a>
 			</div>
 
@@ -29,7 +29,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 				<li class="sep"></li>
 
 				<li>
-					<a href="<?php echo base_url();?>index.php?login/logout">
+					<a href="<?php echo base_url();?>login/logout">
 						<?=get_phrase('log_out');?> <i class="entypo-logout right"></i>
 					</a>
 				</li>

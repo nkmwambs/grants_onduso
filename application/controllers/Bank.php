@@ -14,7 +14,7 @@ class Bank extends MY_Controller implements CrudModelInterface
 
   function __construct(){
     parent::__construct();
-
+    $this->load->library('bank_library');
   }
 
   function index(){}
@@ -27,7 +27,7 @@ class Bank extends MY_Controller implements CrudModelInterface
 
   function delete(){}
 
-  function list(){}  
+  //function list(){}
 
   static function get_menu_list(){
     return array('list_banks'=>array('view','arg1','arg2','arg3'));
