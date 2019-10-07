@@ -10,27 +10,29 @@ class MY_Controller extends CI_Controller implements CrudModelInterface
     parent::__construct();
     $this->controller_library = $this->uri->segment(1, 0).'_library';
     $this->load->library($this->controller_library);
+
   }
 
 
-  function list_result(){
-      $lib = $this->controller_library;
-      return $this->list_result = $this->$lib->list_result();
+  function result(){
+    $action = $this->uri->segment(2,'list').'_result';
+    $lib = $this->controller_library;
+    return $this->list_result = $this->$lib->$action();
   }
 
-  function list_page_name(){
+  function page_name(){
     //return "list";
     return $this->uri->segment(2, 0);
   }
 
-  function list_page_title(){
-    return "List";
+  function page_title(){
+    return ucfirst($this->uri->segment(2, 0));
   }
 
-  function list_views_dir(){
+  function views_dir(){
     $view_path = $this->uri->segment(1, 0);
 
-    if(!file_exists(VIEWPATH.$view_path.'/'.$this->list_page_name().'.php')){
+    if(!file_exists(VIEWPATH.$view_path.'/'.$this->page_name().'.php')){
       $view_path =  'templates';
     }
 
@@ -38,26 +40,32 @@ class MY_Controller extends CI_Controller implements CrudModelInterface
 
   }
 
-  function load_list_template($page_data = array()){
+  function load_template($page_data = array()){
     return $this->load->view('general/index',$page_data);
   }
 
-  function list(){
+  // A specific controller can override crud method
 
-    // Can be overrode in a speicific controller
-    $result = $this->list_result();
+  function crud_views(){
+    $result = $this->result();
 
     // Page name, Page title and views_dir can be overrode in a controller
-    $page_data['page_name'] = $this->list_page_name();
-    $page_data['page_title'] = $this->list_page_title();
-    $page_data['views_dir'] = $this->list_views_dir();
+    $page_data['page_name'] = $this->page_name();
+    $page_data['page_title'] = $this->page_title();
+    $page_data['views_dir'] = $this->views_dir();
     $page_data['result'] = $result;
 
     // Can be overrode in a specific controller
-    $this->load_list_template($page_data);
+    $this->load_template($page_data);
   }
 
-  function view(){
+  // Can be overrode in a speicific controller
+  function list(){
+    $this->crud_views();
+  }
 
+  // Can be overrode in a speicific controller
+  function view(){
+    $this->crud_views();
   }
 }

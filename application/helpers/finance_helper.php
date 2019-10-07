@@ -1,5 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once(FCPATH.'/vendor/autoload.php');
+
 if ( ! function_exists('fk_to_name_field'))
 {
 	function fk_to_name_field($fk_field = '') {
@@ -45,5 +47,19 @@ if ( ! function_exists('elevate_assoc_array_element_to_key'))
 		}
 
 		return $elevated_array;
+	}
+}
+
+if ( ! function_exists('hash_id'))
+{
+	function hash_id($id,$action = 'encode') {
+		$hashids = new Hashids\Hashids('#Compassion321',10);
+
+		if($action == 'encode'){
+			return $hashids->encode($id);
+		}else{
+			return $hashids->decode($id)[0];
+		}
+
 	}
 }

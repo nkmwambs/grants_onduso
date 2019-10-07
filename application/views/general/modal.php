@@ -208,6 +208,14 @@
         ],
         "pagingType": "full_numbers"
       });
+
+      $('.datatable_details').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excelHtml5'
+        ],
+        "pagingType": "full_numbers"
+      });
   } );
   </script>
 

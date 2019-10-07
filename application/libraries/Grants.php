@@ -63,6 +63,8 @@ function table_columns($table,$hidden_columns = array()){
   return $columns_to_display;
 }
 
+//Can be overrode by a feature specific library
+
 function list_result(){
       $model = $this->current_model;
 
@@ -82,7 +84,13 @@ function list_result(){
         return $this->CI->load->view('templates/list',$table_array,true);
       }
 
-
     }
 
+  //Can be overrode by a feature specific library
+  function view_result(){
+    $model = $this->current_model;
+    $result = $this->CI->$model->view();
+
+    return $result;//$this->CI->load->view('templates/view',$result_array,true);
+  }
 }

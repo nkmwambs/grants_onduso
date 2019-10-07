@@ -9,7 +9,7 @@
  */
 
 
-class Approval extends MY_Controller 
+class Approval extends MY_Controller
 {
 
   function __construct(){
@@ -20,15 +20,7 @@ class Approval extends MY_Controller
 
   }
 
-  function create(){}
-
-  function view(){}
-
-  function update(){}
-
-  function delete(){}
-
-  function list_page_title(){
+  function page_title(){
     return "Listing";
   }
 

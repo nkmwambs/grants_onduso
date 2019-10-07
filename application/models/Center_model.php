@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Center_model extends MY_Model
+class Center_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
 {
 
   public $table = 'center'; // you MUST mention the table name
@@ -25,11 +25,16 @@ class Center_model extends MY_Model
 
   }
 
+  function details_lookup_tables(){
+    //return array('detail_tables'=>array('reconciliation','voucher','budget','center_project_allocation','center_bank'));
+    return array('detail_tables'=>array('budget','reconciliation'));
+  }
+
   function list(){
-    return $this->grants_model->list_query();
+    return $this->grants_model->list_query($this->details_lookup_tables());
   }
 
   function view(){
-    
+    return $this->grants_model->view_query($this->details_lookup_tables());
   }
 }

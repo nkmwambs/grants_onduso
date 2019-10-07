@@ -9,7 +9,7 @@
  */
 
 
-class Center extends MY_Controller implements CrudModelInterface
+class Center extends MY_Controller
 {
 
   function __construct(){
@@ -19,13 +19,6 @@ class Center extends MY_Controller implements CrudModelInterface
 
   function index(){}
 
-  function create(){}
-
-  function view(){}
-
-  function update(){}
-
-  function delete(){}
 
   static function get_menu_list(){
 

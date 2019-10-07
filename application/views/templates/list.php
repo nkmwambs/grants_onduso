@@ -94,7 +94,7 @@
                             // }else
 
                             if(strpos($td_key,'track_number') == true ){
-                              echo '<a href="'.base_url().strtolower($primary_key_field).'/view/'.$primary_key.'">'.$td_value.'</a>';
+                              echo '<a href="'.base_url().strtolower($primary_key_field).'/view/'.hash_id($primary_key).'">'.$td_value.'</a>';
                             }elseif(strpos($td_key,'is_active') == true){
                                 echo $td_value == 1?"Yes":"No";
                             }else{

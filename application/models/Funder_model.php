@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Funder_model extends MY_Model implements CrudModelInterface
+class Funder_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
 {
   public $table = 'funder'; // you MUST mention the table name
   public $primary_key = 'funder_id'; // you MUST mention the primary key
@@ -31,11 +31,15 @@ class Funder_model extends MY_Model implements CrudModelInterface
 
   function index(){}
 
+  function details_lookup_tables(){
+    return array('detail_tables'=>array('project'));
+  }
+
   function list(){
-    return $this->grants_model->list_query();
+    return $this->grants_model->list_query($this->details_lookup_tables());
   }
 
   function view(){
-    
+    return $this->grants_model->view_query($this->details_lookup_tables());
   }
 }

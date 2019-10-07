@@ -23,11 +23,11 @@ class Journal extends MY_Controller
 
   }
 
-  function list_page_name(){
+  function page_name(){
     return "journal";
   }
 
-  function list_page_title(){
+  function page_title(){
     return "Journal";
   }
 

@@ -8,7 +8,7 @@
  *	NKarisa@ke.ci.org
  */
 
-class Approval_model extends MY_Model implements CrudModelInterface
+class Approval_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
 {
   public $table = 'approval'; // you MUST mention the table name
   public $primary_key = 'approval_id'; // you MUST mention the primary key
@@ -31,14 +31,16 @@ class Approval_model extends MY_Model implements CrudModelInterface
 
   function index(){}
 
-  function list(){
-    $table = "approval";
-    $this->lookup_tables = array('approval_status','approveable_item');
-    return $this->grants_model->list_query($this->lookup_tables);
+  function details_lookup_tables(){
+    return array('lookup_tables'=>array('approval_status','approveable_item'));
   }
 
-function view(){
-  
-}
+  function list(){
+    return $this->grants_model->list_query($this->details_lookup_tables());
+  }
+
+  function view(){
+    return $this->grants_model->view_query($this->details_lookup_tables());
+  }
 
 }

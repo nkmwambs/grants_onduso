@@ -9,7 +9,7 @@
  */
 
 
-class Bank extends MY_Controller implements CrudModelInterface
+class Bank extends MY_Controller
 {
 
   function __construct(){
@@ -18,14 +18,6 @@ class Bank extends MY_Controller implements CrudModelInterface
   }
 
   function index(){}
-
-  function create(){}
-
-  function view(){}
-
-  function update(){}
-
-  function delete(){}
 
   //function list(){}
 
