@@ -20,22 +20,14 @@ class Project_model extends MY_Model implements CrudModelInterface, TableRelatio
     function index(){}
 
 
-    function details_lookup_tables(){
-      return array('detail_tables'=>array('project'));
-    }
-
-    function list_columns(){
-
-    }
-
     //This method overrides the My_Model table_hidden_columns. Calling it with empty body entirely does away with the
     //set default hidden columns i.e. all columns will be vieable as it is from the table.
     //This method overrides the My_Model table_hidden_columns
     function table_hidden_columns(){
-      $hidden_columns = array($this->table.'_last_modified_date',$this->table.'_created_date',
-      $this->table.'_last_modified_by',$this->table.'_created_by',$this->table.'_deleted_at');
-
-      return $hidden_columns;
+      // $hidden_columns = array($this->table.'_last_modified_date',$this->table.'_created_date',
+      // $this->table.'_last_modified_by',$this->table.'_created_by',$this->table.'_deleted_at');
+      //
+      // return $hidden_columns;
     }
 
     // This method when implemented overwites the any implementation of table_hidden_columns and allows the
@@ -54,16 +46,16 @@ class Project_model extends MY_Model implements CrudModelInterface, TableRelatio
     }
 
     function lookup_tables(){
-
+      return array('funding_status','funder');
     }
 
     function detail_tables(){
-
+      return array('center_project_allocation');
     }
 
     function list(){
       //return $this->grants_model->list_query($this->details_lookup_tables());
-      return $this->db->get('prjoect',array('fk_funder_id'=>1))->result_array();
+      //return $this->db->get('project',array('fk_funder_id'=>1))->result_array();
     }
 
     function view(){

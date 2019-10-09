@@ -10,4 +10,8 @@ interface TableRelationshipInterface {
 
   public function table_hidden_columns();
 
+  public function master_table_visible_columns();
+
+  public function master_table_hidden_columns();
+
 }

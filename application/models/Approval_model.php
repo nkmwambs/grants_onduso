@@ -42,6 +42,15 @@ class Approval_model extends MY_Model implements CrudModelInterface, TableRelati
 
   }
 
+  function master_table_visible_columns(){
+    //return array('approval_track_number','approval_approveable_table_primary_key');
+  }
+
+//Not working yet. Should allow hidding columns by default from the My Model method or overide it here
+  function master_table_hidden_columns(){
+    //return array('funder_deleted_at');
+  }
+
   function list(){
 
   }

@@ -1,7 +1,5 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-//print_r($result);
-
 extract($result);
 
 ?>
@@ -35,15 +33,19 @@ extract($result);
         <tr>
           <th><?=get_phrase('action');?></th>
         <?php
-        foreach ($keys as $th_value) {
-          if(strpos($th_value,'Key') == true || $th_value == $table_name."_id"  ) {
+        $counter_header = 0;
+        foreach ($table_header as $th_value) {
+          if(strtolower($this->controller) == strtolower($th_value) ||
+              strpos($th_value,'Key') == true
+            ) {
+            $counter_header++;
             continue;
           }
 
         ?>
-          <th><?=ucwords(str_replace("_"," ",$th_value));?></th>
+          <th><?=$th_value;?></th>
         <?php
-
+          $counter_header++;
         }
         ?>
       </tr>
@@ -53,11 +55,7 @@ extract($result);
           $primary_key = 0;
           $primary_table = "";
           if(isset($table_body)){
-            $primary_key = 0;
-            $primary_key_column = array_shift($keys);
-
-          foreach ($table_body as $row) {
-            $primary_key = $row[$primary_key_column];
+          foreach ($table_body as $td_array) {
         ?>
           <tr>
               <td>
@@ -65,27 +63,34 @@ extract($result);
                 <a href="<?=base_url().strtolower($this->controller).'/delete/'.hash_id($primary_key);?>"><?=get_phrase('delete');?></a>
               </td>
               <?php
+                  $counter_body = 0;
+                  $primary_key = 0;
+                  foreach ($td_array as $td_key => $td_value) {
+                      if($td_key == strtolower($this->controller).'_id') {
+                          $primary_key = $td_value;
+                          $primary_table = strtolower($this->controller);//substr($td_key,0,-3);
+                          $counter_body++;
+                          continue;
+                        }
 
-                  foreach ($keys as $column) {
-
-                        if(strpos($column,'_key') == true){
+                        if(strpos($td_key,'_key') == true){
                           continue;
                         }
                 ?>
                         <td>
                           <?php
 
-                            if(strpos($column,'track_number') == true ){
-                              echo '<a href="'.base_url().strtolower($this->controller).'/view/'.hash_id($primary_key).'">'.$row[$column].'</a>';
-                            }elseif(strpos($column,'is_active') == true){
-                                echo $row[$column] == 1?"Yes":"No";
+                            if(strpos($td_key,'track_number') == true ){
+                              echo '<a href="'.base_url().strtolower($this->controller).'/view/'.hash_id($primary_key).'">'.$td_value.'</a>';
+                            }elseif(strpos($td_key,'is_active') == true){
+                                echo $td_value == 1?"Yes":"No";
                             }else{
-                              echo ucfirst($row[$column]);
+                              echo ucfirst($td_value);
                             }
 
                            ?>
                         </td>
-                <?php }?>
+                <?php $counter_body++;  }?>
 
           </tr>
 

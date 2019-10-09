@@ -12,29 +12,30 @@ class Center_model extends MY_Model implements CrudModelInterface, TableRelation
 {
 
   public $table = 'center'; // you MUST mention the table name
-  public $primary_key = 'center_id'; // you MUST mention the primary key
-  public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
-  public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
+
 
   function __construct(){
     parent::__construct();
     $this->load->database();
   }
 
-  function index(){
+  function index(){}
 
+  public function lookup_tables(){}
+
+  public function detail_tables(){
+    return array('budget','reconciliation','center_bank');
   }
 
-  function details_lookup_tables(){
-    //return array('detail_tables'=>array('reconciliation','voucher','budget','center_project_allocation','center_bank'));
-    return array('detail_tables'=>array('budget','reconciliation'),'lookup_tables'=>array());
-  }
+  public function table_visible_columns(){}
 
-  function list(){
-    return $this->grants_model->list_query($this->details_lookup_tables());
-  }
+  public function table_hidden_columns(){}
 
-  function view(){
-    return $this->grants_model->view_query($this->details_lookup_tables());
-  }
+  public function master_table_visible_columns(){}
+
+  public function master_table_hidden_columns(){}
+
+  public function list(){}
+
+  public function view(){}
 }

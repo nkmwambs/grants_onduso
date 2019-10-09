@@ -8,9 +8,9 @@
  *	NKarisa@ke.ci.org
  */
 
-class Budget_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
+class Reconciliation_model extends MY_Model
 {
-  public $table = 'budget'; // you MUST mention the table name
+  public $table = 'reconciliation'; // you MUST mention the table name
 
 
   function __construct(){
@@ -20,12 +20,10 @@ class Budget_model extends MY_Model implements CrudModelInterface, TableRelation
   function index(){}
 
   public function lookup_tables(){
-    return array('center');
+    return array('center','approval_status');
   }
 
-  public function detail_tables(){
-    return array('budget_detail');
-  }
+  public function detail_tables(){}
 
   public function table_visible_columns(){}
 

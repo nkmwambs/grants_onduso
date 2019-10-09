@@ -22,6 +22,18 @@ function __construct(){
   $this->CI->load->model('grants_model');
 }
 
+function lookup_tables($table_name = ""){
+  $model = $this->load_detail_model($table_name);
+
+  return $this->CI->$model->lookup_tables();
+}
+
+function detail_tables($table_name = ""){
+  $model = $this->load_detail_model($table_name);
+
+  return $this->CI->$model->detail_tables();
+}
+
 //This function allows unsetting default hidden columns. It's callable from specific model
 //Example:
 //$columns_to_show =  array('funder_created_date','funder_last_modified_date');
@@ -100,9 +112,11 @@ function camel_case_header($table,$hidden_columns = array()){
 
   $headers = $this->table_columns($table,$hidden_columns);
 
+
   $sanitized_headers = array();
 
   foreach ($headers as $header) {
+
       //check if _id is part of the last part of the string and remove the _id
       if(substr($header,-3) == '_id'){
           $header = substr($header, 0, -3);
@@ -127,6 +141,7 @@ function table_columns($table,$hidden_columns = array()){
 
 
   foreach ($all_columns as $column) {
+    //$columns_to_display[] = $column;
 
     if(is_array($hidden_columns) && count($hidden_columns)>0){
         if(!in_array($column,$hidden_columns)){
@@ -174,7 +189,7 @@ function switch_query_result_source($table_name = "",$force_action_to = ""){
     //is_array($this->CI->$model->$action()) && count($this->CI->$model->$action()) > 0
     //Use the user defined results in the specific model
     //$result = $this->CI->$model->$action();
-    $result = $this->CI->db->get('project')->result_array();//$this->CI->grants_model->$action($this->CI->$model->$relationship_tables(),$table_name);
+    $result = $this->CI->grants_model->$action($this->CI->$model->$relationship_tables(),$table_name,$this->CI->uri->segment(3,0) );
   }else{
     //Use the array results produced from the grants model
     $result = $this->CI->grants_model->$action($this->CI->$model->$relationship_tables(),$table_name);
@@ -188,11 +203,26 @@ function list_result($table_name = "",$force_action_to = ""){
 
       $result = $this->switch_query_result_source($table,$force_action_to);
 
-        $table_array = array(
-          'keys'=> $this->table_columns($table,$this->table_hidden_columns($table)),
-          'table_header'=>$this->camel_case_header($table,$this->table_hidden_columns($table)),
+      $keys = $this->table_columns($table,$this->table_hidden_columns($table));
+
+      if(in_array($table.'_created_by', $keys) ){
+        $created_by_id = array_search($table.'_created_by',$keys);
+        unset($keys[$created_by_id]);
+
+        $last_modified_by_id = array_search($table.'_last_modified_by',$keys);
+        unset($keys[$last_modified_by_id]);
+      }
+
+      $has_detail = (is_array( $this->detail_tables($table) ) && count( $this->detail_tables($table) ) > 0 )?1:0;
+
+      //$table_header = $this->camel_case_header($table,$this->table_hidden_columns($table));
+
+      $table_array = array(
+          'keys'=> $keys,
+          //'table_header'=>$table_header,
           'table_body'=>$result,
-          'test_key'=>$table
+          'table_name'=>$table,
+          'has_details'=> $has_detail
         );
 
         return $table_array;

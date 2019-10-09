@@ -8,9 +8,9 @@
  *	NKarisa@ke.ci.org
  */
 
-class Budget_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
+class Budget_month_spread_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
 {
-  public $table = 'budget'; // you MUST mention the table name
+  public $table = 'budget_month_spread'; // you MUST mention the table name
 
 
   function __construct(){
@@ -20,12 +20,10 @@ class Budget_model extends MY_Model implements CrudModelInterface, TableRelation
   function index(){}
 
   public function lookup_tables(){
-    return array('center');
-  }
-
-  public function detail_tables(){
     return array('budget_detail');
   }
+
+  public function detail_tables(){}
 
   public function table_visible_columns(){}
 
