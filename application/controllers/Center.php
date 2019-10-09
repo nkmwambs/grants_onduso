@@ -19,7 +19,6 @@ class Center extends MY_Controller
 
   function index(){}
 
-
   static function get_menu_list(){
 
   }

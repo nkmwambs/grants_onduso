@@ -11,66 +11,83 @@
 class Grants_model extends CI_Model
 {
 
-  private $current_model;
-
   function __construct(){
     parent::__construct();
-    $this->load->database();
-    $this->current_model = $this->uri->segment(1,'approval').'_model';
-    $this->load->model($this->current_model);
   }
 
   function index(){
 
   }
 
-  function list_query($detail_lookup_tables = array()){
+  function list($lookup_tables,$table_name = "",$id = ""){
+    // This $this->controller is a public parameter of the MY_Controller
+    $table = $table_name == ""?strtolower($this->controller):$table_name;
 
-    $table = strtolower($this->uri->segment(1));
+    $this->select_columns($table);
 
-    $table_columns = $this->grants->table_columns($table,$this->set_hidden_columns());
-    $this->db->select($table_columns);
-
-    if(is_array($detail_lookup_tables) && array_key_exists('lookup_tables',$detail_lookup_tables) && count($detail_lookup_tables['lookup_tables']) > 0 ){
-      foreach ($detail_lookup_tables['lookup_tables'] as $lookup_table) {
+    if(is_array($lookup_tables) && count($lookup_tables) > 0 ){
+      foreach ($lookup_tables as $lookup_table) {
           $lookup_table_id = $lookup_table.'_id';
           $this->db->join($lookup_table,$lookup_table.'.'.$lookup_table_id.'='.$table.'.fk_'.$lookup_table_id);
       }
     }
 
+    //Allow a list result with an id condition
+    if($id !== ""){
+      $this->db->where(array($table.'_id'=> hash_id($id,'decode') ));
+    }
+
     return $this->db->get($table)->result_array();
   }
 
-  function view_query($detail_lookup_tables = array()){
+  function select_columns($table = "",$table_as_master = false){
 
-    $table = strtolower($this->uri->segment(1));
+    $table = $table == ""?$this->controller:$table;
+
+    $table_columns = $this->grants->table_columns($table,$this->grants->table_hidden_columns($table));
+
+    if($table_as_master){
+      if(is_array($this->grants->table_visible_columns($table,true)) && count($this->grants->table_visible_columns($table,true)) > 0 ){
+        $table_columns = $this->grants->table_visible_columns($table,true);
+      }else{
+        $table_columns = $this->grants->table_columns($table,$this->grants->table_hidden_columns($table,true));
+      }
+    }else{
+      if(is_array($this->grants->table_visible_columns($table)) && count($this->grants->table_visible_columns($table)) > 0 ){
+        $table_columns = $this->grants->table_visible_columns($table);
+      }
+    }
+
+
+    $this->db->select($table_columns);
+  }
+
+  function view($detail_tables = array()){
+
+    // This $this->controller is a public parameter of the MY_Controller
+    $table = strtolower($this->controller);
+
+    $model = $this->current_model;
 
     $data = array();
 
+    $this->select_columns($table,true);
+
     $data['master'] = (array)$this->db->get_where($table,array($table.'_id'=> hash_id($this->uri->segment(3,0),'decode') ))->row();
 
-    if(is_array($detail_lookup_tables) && array_key_exists('detail_tables',$detail_lookup_tables) && count($detail_lookup_tables['detail_tables']) > 0 ){
-      foreach ($detail_lookup_tables['detail_tables'] as $detail_table) {
-          $detail_table_id = $detail_table.'_id';
-          $this->db->join($detail_table,$detail_table.'.fk_'.$table.'_id='.$table.'.'.$table.'_id');
-          $data['detail'][$detail_table] = $this->db->get_where($table,array($table.'_id'=> hash_id($this->uri->segment(3,0),'decode') ))->result_array();
+    if(is_array($detail_tables) && count($detail_tables) > 0 ){
+      foreach ($detail_tables as $detail_table) {
+          //$this->select_columns($detail_table);
+          $data['detail'][$detail_table]= $this->grants->list_result($detail_table,'list');//return second arg as list and resolve the error
       }
     }
 
     return $data;
   }
 
-  function set_hidden_columns(){
-    $controller = $this->uri->segment(1,0);
-    $this->hidden_columns = array($controller.'_last_modified_date',$controller.'_created_date',
-    $controller.'_last_modified_by',$controller.'_created_by',$controller.'_deleted_at');
-
-    return $this->hidden_columns;
-  }
-
-  function get_all_table_fields($table = 'approval'){
+  function get_all_table_fields($table_name = ""){
+    $table = $table_name == ""?$this->controller:$table_name;
     return $this->db->table_exists($table)?$this->db->list_fields($table):array();
-
   }
 
 }

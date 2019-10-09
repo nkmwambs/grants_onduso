@@ -1,4 +1,5 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+print_r($result);
 
 //Remove the primary key field from the master table
 unset($result['master'][$this->controller.'_id']);

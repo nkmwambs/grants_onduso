@@ -121,7 +121,7 @@ class Menu {
       $top_menu_items = array();
 
       foreach($controllers as $controller => $methods){
-        $interfaces = class_implements($controller);
+        //$interfaces = class_implements($controller);
 
         //if (isset($interfaces['CrudModelInterface']) && in_array('get_menu_list',$methods) ) {
         if (in_array('get_menu_list',$methods) ) {
@@ -162,7 +162,7 @@ class Menu {
           $user_more_menu = elevate_array_element_to_key($user_menu_by_priority_groups[0],'menu_derivative_controller');
 
 
-          $this->CI->session->set_userdata('test_session',$user_menu_by_priority_groups);
+          //$this->CI->session->set_userdata('test_session',$user_menu_by_priority_groups);
 
           $this->CI->session->set_userdata('user_menu',$full_user_menu);
 

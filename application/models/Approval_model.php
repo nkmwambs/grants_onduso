@@ -11,36 +11,43 @@
 class Approval_model extends MY_Model implements CrudModelInterface, TableRelationshipInterface
 {
   public $table = 'approval'; // you MUST mention the table name
-  public $primary_key = 'approval_id'; // you MUST mention the primary key
-  public $fillable = array(); // If you want, you can set an array with the fields that can be filled by insert/update
-  public $protected = array(); // ...Or you can set an array with the fields that cannot be filled by insert/update
 
   public $hidden_columns = array();
   private $lookup_tables = array();
 
   function __construct(){
     parent::__construct();
-    $this->load->database();
-    //$this->has_many['approveable_item'] = 'Approveable_item_model';
-    //$this->has_many['approval_status'] = 'Approval_status_model';
-		$this->return_as = 'array';
-		$this->timestamps = TRUE;
-		$this->soft_deletes = TRUE;
-
   }
 
   function index(){}
 
-  function details_lookup_tables(){
-    return array('lookup_tables'=>array('approval_status','approveable_item'));
+  function lookup_tables(){
+    return array('approval_status','approveable_item');
+  }
+
+  function detail_tables(){
+
+  }
+
+  //This method overrides the My_Model table_hidden_columns
+  function table_hidden_columns(){
+    //Only use this table to indicate the models table which is a parameter in this class
+    $hidden_columns = array($this->table.'_last_modified_date',$this->table.'_created_date',
+    $this->table.'_last_modified_by',$this->table.'_created_by',$this->table.'_deleted_at');
+
+    return $hidden_columns;
+  }
+
+  function table_visible_columns(){
+
   }
 
   function list(){
-    return $this->grants_model->list_query($this->details_lookup_tables());
+
   }
 
   function view(){
-    return $this->grants_model->view_query($this->details_lookup_tables());
+
   }
 
 }

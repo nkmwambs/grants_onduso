@@ -2082,4 +2082,19 @@ class MY_Model extends CI_Model
 	    return $data;
     }
     */
+
+    // Can be overriden in the specific model or extended
+    function table_hidden_columns(){
+      $hidden_columns = array($this->table.'_last_modified_date',$this->table.'_created_date',
+      $this->table.'_last_modified_by',$this->table.'_created_by',$this->table.'_deleted_at');
+
+      return $hidden_columns;
+    }
+
+    function master_table_hidden_columns(){
+      $hidden_columns = array($this->table.'_last_modified_date',$this->table.'_created_date',
+      $this->table.'_last_modified_by',$this->table.'_created_by',$this->table.'_deleted_at');
+
+      return $hidden_columns;
+    }
 }

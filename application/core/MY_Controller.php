@@ -4,33 +4,46 @@ class MY_Controller extends CI_Controller implements CrudModelInterface
 {
 
   private $list_result;
-  private $controller_library;
+
+  public $current_library;
+  public $current_model;
+  public $controller;
+  public $action;
 
   function __construct(){
     parent::__construct();
-    $this->controller_library = $this->uri->segment(1, 0).'_library';
-    $this->load->library($this->controller_library);
 
+    $segment = $this->uri->segment(1, 'approval');
+    $action = $this->uri->segment(2, 'list');
+
+    $this->current_library = $segment.'_library';
+    $this->current_model = $segment.'_model';
+    $this->controller = $segment;
+    $this->action = $action;
+
+    $this->load->library($this->current_library);
+    $this->load->model($this->current_model);
+
+    $this->load->database();
   }
 
 
   function result(){
-    $action = $this->uri->segment(2,'list').'_result';
-    $lib = $this->controller_library;
+    $action = $this->action.'_result';
+    $lib = $this->current_library;
     return $this->list_result = $this->$lib->$action();
   }
 
   function page_name(){
-    //return "list";
-    return $this->uri->segment(2, 0);
+    return $this->action;
   }
 
   function page_title(){
-    return ucfirst($this->uri->segment(2, 0));
+    return ucfirst($this->action);
   }
 
   function views_dir(){
-    $view_path = $this->uri->segment(1, 0);
+    $view_path = $this->controller;
 
     if(!file_exists(VIEWPATH.$view_path.'/'.$this->page_name().'.php')){
       $view_path =  'templates';

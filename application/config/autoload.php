@@ -103,7 +103,7 @@ $autoload['helper'] = array('multi_language','url','finance');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('grants');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('grants_model');
+$autoload['model'] = array('Grants_model');

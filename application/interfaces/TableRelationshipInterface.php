@@ -2,8 +2,12 @@
 
 interface TableRelationshipInterface {
 
-  public function details_lookup_tables();
+  public function lookup_tables();
 
-  //public function detail_tables();
+  public function detail_tables();
+
+  public function table_visible_columns();
+
+  public function table_hidden_columns();
 
 }
