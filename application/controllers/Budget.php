@@ -17,6 +17,18 @@ class Budget extends MY_Controller
 
   }
   function index(){}
+  
+  public function new_budget_item()
+  {
+      //if ($this->session->userdata('login') != 1)
+           // redirect(base_url(), 'refresh');
+		
+	  $page_data['page_name'] = "new_budget_item";
+      $page_data['page_title'] = "Budget";
+      $page_data['views_dir'] = "budget";
+
+      $this->load->view('budget/new_budget_item',$page_data);
+  }
 
 
   static function get_menu_list(){

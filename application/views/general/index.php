@@ -52,7 +52,8 @@
 				<hr />
 				<div class="page-content">
 		           <!--Showing Progress GIF. Must be available in evert form-->
-					<?php include APPPATH."views/".$views_dir.'/'.$page_name.'.php';?>
+					<?php //echo realpath(__DIR__ . DIRECTORY_SEPARATOR . '..').'\\'.$views_dir.'\\'.$page_name.'.php';
+					include realpath(__DIR__ . DIRECTORY_SEPARATOR . '..').DIRECTORY_SEPARATOR.$views_dir.DIRECTORY_SEPARATOR.$page_name.'.php';?>
 				</div>
 			<?php include 'footer.php';?>
 

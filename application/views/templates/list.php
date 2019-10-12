@@ -4,6 +4,7 @@
 
 extract($result);
 
+
 ?>
 
 <div class="row">
@@ -24,7 +25,17 @@ extract($result);
 
 <div class="row" style="margin-bottom:25px;">
   <div class="col-xs-12" style="text-align:center;">
-    <button class="btn btn-default">Add <?=ucfirst($this->controller);?></button>
+  	<?php 
+  	  //link for add new button [added by Onduso]
+  	  $add_button_link="";
+  	  if($this->controller=='voucher'){
+  	  	$add_button_link=base_url().$this->controller."/new_voucher";
+  	  }
+	  else if($this->controller=='budget'){
+	  	$add_button_link=base_url().$this->controller."/new_budget_item";
+	  }
+  	?>
+    <a class="btn btn-default" href="<?=$add_button_link;?>">Add <?=ucfirst($this->controller);?></a>
   </div>
 </div>
 
