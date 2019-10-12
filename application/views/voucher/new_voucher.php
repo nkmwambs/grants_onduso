@@ -233,45 +233,34 @@
 </div>
 
 <script type="text/javascript">
-    
-    function disableOrEnableControls(){
+
+    //Fuction to disable or enable controls
+    function disableOrEnableControls(bolean_passed){
     	//Disable the inputs
         $('.first_control').each(function (){
            
-            $(this).attr('readonly',true);
+            $(this).attr('readonly',bolean_passed);
         });
         	//Disable 'Add Row' button
-        $('.add_a_row').attr('disabled',true);
+        $('.add_a_row').attr('disabled',bolean_passed);
     }
 
+    //Check first if the DOM has loaded before finding elements
 	$(document).ready(function()
 	{
 		
-		//On unhide the div
 		$("#voucher_type").change(function(){
 			
 		//Enable the add row button and other input controls (textbox and select) only when value other zero is selected
 		if($(this).val()!='#'){
-			//Enable the inputs
-			$('.first_control').each(function (){
-           
-            	$(this).attr('readonly',false);
-        	});
-        	
-        	//Enable 'Add Row' button
-        	$('.add_a_row').attr('disabled',false);
+			
+			disableOrEnableControls(false);
         }
         else{
-        	//Disable the inputs
-        	$('.first_control').each(function (){
-           
-            	$(this).attr('readonly',true);
-        	});
-        	//Disable 'Add Row' button
-        	$('.add_a_row').attr('disabled',true);
+        	
+        	disableOrEnableControls(true);
         }
-	
-					
+						
 		//Check if the value selected is 'CHQ' and then unhide the div
 		if($(this).val()=='CHQ')
 		{
