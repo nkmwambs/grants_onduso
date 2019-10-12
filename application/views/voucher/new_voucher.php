@@ -215,6 +215,46 @@
 
 </div>
 
+<script type="text/javascript">
+
+	$(document).ready(function()
+	{
+		
+		//On unhide the div
+		$("#voucher_type").change(function(){
+		//Check if the value selected is 'CHQ' and then unhide the div
+		if($(this).val()=='CHQ')
+		{
+		 //Find the cheque no and switch divs and remove hidden
+		 $('#cheque_no_div').attr('hidden',false);
+		 
+		 $('#label-toggle-switch').attr('hidden',false);
+		 
+		 $('#voucher_cheque_number').attr('readonly', false);
+		 
+		 //Clear the text in voucher cheque number first if any value
+		 
+		 $('#voucher_cheque_number').val('');
+		 
+			
+			
+		}
+		else{
+		//Find the cheque no and switch divs and remove hidden
+		 $('#cheque_no_div').attr('hidden',true);
+		 
+		 $('#label-toggle-switch').attr('hidden',true);
+		 
+		 $('#voucher_cheque_number').attr('readonly', true);
+			
+		}
+	});
+	});
+	
+	
+	
+</script>
+
 
 <!-- <script type="text/javascript">
 
