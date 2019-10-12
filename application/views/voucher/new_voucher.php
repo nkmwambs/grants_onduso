@@ -76,7 +76,7 @@
 					            <td colspan="">
 					            	<div class="col-xs-12 form-group" >
 			                    		<label for="voucher_type_label" class="control-label"><span style="font-weight: bold;"><?php echo get_phrase('voucher_type');?>:</span></label>
-					                        <select name="voucher_type" id="voucher_type" class="form-control accNos" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>">
+					                        <select name="voucher_type" id="voucher_type" class="form-control" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>">
 					                            <option value="#"><?php echo get_phrase('select_voucher_type');?></option>
 					                            <option value="PC"><?php echo get_phrase('payment_by_cash');?></option>
 					                            <option value="CHQ"><?php echo get_phrase('payment_by_cheque');?></option>
@@ -111,8 +111,8 @@
 			                <tr>
 			                    <td colspan="8">
 			                    	<div class="form-group">
-			                    		<label for="Payee" class="control-label"><span style="font-weight: bold;"><?php echo get_phrase('pay_to_(vendor)');?>: </span></label>
-			                    		<input type="text" class="form-control accNos" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" id="Payee" name="Payee"/>
+			                    		<label for="voucher_vendor" class="control-label"><span style="font-weight: bold;"><?php echo get_phrase('pay_to_(vendor)');?>: </span></label>
+			                    		<input type="text" class="form-control" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" id="voucher_vendor" name="voucher_vendor"/>
 			                    	</div>
 			                    </td>
 			                </tr>
@@ -126,7 +126,7 @@
 			                    <td colspan="8">
 			                    	<div class="form-group">
 			                    			<label for="voucher_description" class="control-label"><span style="font-weight: bold;"><?php echo get_phrase('payment_description');?></span></label>
-			                    		<input type="text" class="form-control accNos" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" id="voucher_description" name="voucher_description"/>
+			                    		<input type="text" class="form-control" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>" id="voucher_description" name="voucher_description"/>
 			                    	</div>
 			                    	
 			                    </td>
@@ -143,7 +143,7 @@
 		    
 		    <div class="row">
 		    	<div class="col-xs-12">   
-			        <table id="bodyTable" class="table table-bordered">
+			        <table id="voucher_detail_table" class="table table-bordered">
 			        	<thead>
 				            <tr style="font-weight: bold;">
 				                <!-- <th><?php echo get_phrase('check');?></th> -->
@@ -155,12 +155,12 @@
 				         	<!--This is the first row-->
 				         	 <tr>
 				                <!-- <td><input type="checkbox"  name="remove_row[]"/> </td> -->
-				                <td><input class="form-control" type="text"  name="description[]"/></td>
-				                <td><input class="form-control" type="text"  name="quantity[]"/></td>
-				                <td><input class="form-control" type="text"  name="unit_cost[]"/></td>
-				                <td><input class="form-control" type="text"  name="total_cost[]"/></td>
+				                <td><input class="form-control first_control" type="text"  name="description[]" readonly="readonly"/></td>
+				                <td><input class="form-control first_control" type="text"  name="quantity[]" readonly="readonly"/></td>
+				                <td><input class="form-control first_control" type="text"  name="unit_cost[]" readonly="readonly"/></td>
+				                <td><input class="form-control first_control" type="text"  name="total_cost[]" readonly="readonly"/></td>
 				                <td class='col-xs-2'>
-				                	<select class="form-control" name="income_expense_account[]">
+				                	<select class="form-control first_control" name="income_expense_account[]" readonly="readonly">
 				                	   <option value='0'>Select Acc</option>
 				                	   <option value='1'>Acc-500</option>
 				                	   <option value='2'>Acc-400</option>
@@ -170,8 +170,8 @@
 				                	   <option value='6'>Acc-780</option>
 				                	</select>
 				                </td>
-				                <td><input class="form-control" type="text"  name="special_code[]"/></td>
-				                <td class='hidden-print'><a class="add_a_row btn btn-primary" href="javascript:void(0);">Add Row</a></td>
+				                <td><input class="form-control first_control" type="text"  name="special_code[]" readonly="readonly"/></td>
+				                <td class='hidden-print first_control'><a class="add_a_row btn btn-primary" href="javascript:void(0);" disabled="disabled">Add Row</a></td>
 				            </tr>
 				         </tbody>   
 			        </table>
@@ -185,8 +185,8 @@
 			            <tr>
 			            	<td colspan="5">
 			            		<div class="form-group pull-right">
-			            			<label for='total_cost' class="control-label"><span style="font-weight: bold;">Grand Total:</span></label>
-			            			<input class="form-control" type="text" id="totatotal_costls" name="total_cost" readonly/>
+			            			<label for='grand_total' class="control-label"><span style="font-weight: bold;">Grand Total:</span></label>
+			            			<input class="form-control" type="text" id="grand_total" name="grand_total" readonly/>
 			            		</div>
 			            	</td>
 			            </tr>
@@ -201,8 +201,8 @@
 				     <i class="entypo-cancel-circled"></i>
 				</a>
 						
-				<button type="submit" id="btnPostVch" class="btn btn-default btn-icon icon-left hidden-print pull-left">
-				     <?php echo get_phrase('post');?>
+				<button type="submit" id="btn_post_voucher" class="btn btn-default btn-icon icon-left hidden-print pull-left">
+				     <?php echo get_phrase('post_voucher');?>
 				     <i class="entypo-thumbs-up"></i>
 				</button>
 				
@@ -220,7 +220,6 @@
 			</div>
 		
 		</div>
-		        <INPUT type="hidden" id="hidden" value=""/>
 		    
 				
 
@@ -273,7 +272,7 @@
 	$(function() {
     $(".add_a_row").click(function(){
        var clone = $(this).closest('tr').clone(true);
-       
+       //modfy the dom
        $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary hidden-print">Remove</a>');
        clone.insertAfter( $(this).closest('tr'));
     });
