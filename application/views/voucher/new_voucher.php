@@ -148,7 +148,7 @@
 				            <tr style="font-weight: bold;">
 				                <!-- <th><?php echo get_phrase('check');?></th> -->
 				                <th><?php echo get_phrase('particulars_ /_details');?></th><th><?php echo get_phrase('quantity');?></th><th><?php echo get_phrase('unit_cost');?></th><th><?php echo get_phrase('subtotal');?></th><th><?php echo get_phrase('account');?></th><th><?php echo get_phrase('special_code_if_any');?></th>
-				                <th><?php echo get_phrase('Action');?></th>
+				                <th class='hidden-print'><?php echo get_phrase('Action');?></th>
 				            </tr>
 				         </thead>
 				         <tbody>
@@ -171,7 +171,7 @@
 				                	</select>
 				                </td>
 				                <td><input class="form-control" type="text"  name="special_code[]"/></td>
-				                <td><a class="add_a_row btn btn-primary" href="javascript:void(0);">Add Row</a></td>
+				                <td class='hidden-print'><a class="add_a_row btn btn-primary" href="javascript:void(0);">Add Row</a></td>
 				            </tr>
 				         </tbody>   
 			        </table>
@@ -274,7 +274,7 @@
     $(".add_a_row").click(function(){
        var clone = $(this).closest('tr').clone(true);
        
-       $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary">Remove</a>');
+       $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary hidden-print">Remove</a>');
        clone.insertAfter( $(this).closest('tr'));
     });
     $("table.table").on('click','.remove_a_row',function(){
