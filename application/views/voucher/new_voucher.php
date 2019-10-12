@@ -171,7 +171,7 @@
 				                	</select>
 				                </td>
 				                <td><input class="form-control first_control" type="text"  name="special_code[]" readonly="readonly"/></td>
-				                <td class='hidden-print first_control'><a class="add_a_row btn btn-primary" href="javascript:void(0);" disabled="disabled">Add Row</a></td>
+				                <td class='hidden-print'><a class="add_a_row btn btn-primary" href="javascript:void(0);" disabled="disabled">Add Row</a></td>
 				            </tr>
 				         </tbody>   
 			        </table>
@@ -233,12 +233,45 @@
 </div>
 
 <script type="text/javascript">
+    
+    function disableOrEnableControls(){
+    	//Disable the inputs
+        $('.first_control').each(function (){
+           
+            $(this).attr('readonly',true);
+        });
+        	//Disable 'Add Row' button
+        $('.add_a_row').attr('disabled',true);
+    }
 
 	$(document).ready(function()
 	{
 		
 		//On unhide the div
 		$("#voucher_type").change(function(){
+			
+		//Enable the add row button and other input controls (textbox and select) only when value other zero is selected
+		if($(this).val()!='#'){
+			//Enable the inputs
+			$('.first_control').each(function (){
+           
+            	$(this).attr('readonly',false);
+        	});
+        	
+        	//Enable 'Add Row' button
+        	$('.add_a_row').attr('disabled',false);
+        }
+        else{
+        	//Disable the inputs
+        	$('.first_control').each(function (){
+           
+            	$(this).attr('readonly',true);
+        	});
+        	//Disable 'Add Row' button
+        	$('.add_a_row').attr('disabled',true);
+        }
+	
+					
 		//Check if the value selected is 'CHQ' and then unhide the div
 		if($(this).val()=='CHQ')
 		{
