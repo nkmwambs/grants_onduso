@@ -74,7 +74,7 @@
 									</div>
 					            </td>
 					            <td colspan="">
-					            	<div class="col-sm-10 form-group" >
+					            	<div class="col-xs-12 form-group" >
 			                    		<label for="voucher_type_label" class="control-label"><span style="font-weight: bold;"><?php echo get_phrase('voucher_type');?>:</span></label>
 					                        <select name="voucher_type" id="voucher_type" class="form-control accNos" data-validate="required" data-message-required="<?php echo get_phrase('value_required');?>">
 					                            <option value="#"><?php echo get_phrase('select_voucher_type');?></option>
@@ -119,10 +119,6 @@
 			                  
 			                <tr>
 			                    
-			                  
-			                    
-			                 
-			                    
 			                </tr>
 			                
 			                <tr>
@@ -146,15 +142,37 @@
 		    
 		    
 		    <div class="row">
-		    	<div class="col-sm-12">   
+		    	<div class="col-xs-12">   
 			        <table id="bodyTable" class="table table-bordered">
 			        	<thead>
 				            <tr style="font-weight: bold;">
-				                <th><?php echo get_phrase('check');?></th><th><?php echo get_phrase('particulars_ /_details');?></th><th><?php echo get_phrase('quantity');?></th><th><?php echo get_phrase('cost_per_unit');?></th><th><?php echo get_phrase('subtotal');?></th><th><?php echo get_phrase('account');?></th><th><?php echo get_phrase('special_code_if_any');?></th>
+				                <!-- <th><?php echo get_phrase('check');?></th> -->
+				                <th><?php echo get_phrase('particulars_ /_details');?></th><th><?php echo get_phrase('quantity');?></th><th><?php echo get_phrase('unit_cost');?></th><th><?php echo get_phrase('subtotal');?></th><th><?php echo get_phrase('account');?></th><th><?php echo get_phrase('special_code_if_any');?></th>
+				                <th><?php echo get_phrase('Action');?></th>
 				            </tr>
 				         </thead>
 				         <tbody>
-				         	
+				         	<!--This is the first row-->
+				         	 <tr>
+				                <!-- <td><input type="checkbox"  name="remove_row[]"/> </td> -->
+				                <td><input class="form-control" type="text"  name="description[]"/></td>
+				                <td><input class="form-control" type="text"  name="quantity[]"/></td>
+				                <td><input class="form-control" type="text"  name="unit_cost[]"/></td>
+				                <td><input class="form-control" type="text"  name="total_cost[]"/></td>
+				                <td class='col-xs-2'>
+				                	<select class="form-control" name="income_expense_account[]">
+				                	   <option value='0'>Select Acc</option>
+				                	   <option value='1'>Acc-500</option>
+				                	   <option value='2'>Acc-400</option>
+				                	   <option value='3'>Acc-760</option>
+				                	   <option value='4'>Acc-800</option>
+				                	   <option value='5'>Acc-750</option>
+				                	   <option value='6'>Acc-780</option>
+				                	</select>
+				                </td>
+				                <td><input class="form-control" type="text"  name="special_code[]"/></td>
+				                <td><a class="add_a_row btn btn-primary" href="javascript:void(0);">Add Row</a></td>
+				            </tr>
 				         </tbody>   
 			        </table>
 			    </div>
@@ -194,10 +212,10 @@
 				     <i class="entypo-minus-circled"></i>
 				</div>					
 						
-				<div id='addrow' class="btn btn-default btn-icon icon-left hidden-print pull-left">
+				<!-- <div id='addrow' class="btn btn-default btn-icon icon-left hidden-print pull-left">
 				      <?php echo get_phrase('new_item_row');?>
 				     <i class="entypo-plus-circled"></i>
-				</div>
+				</div> -->
 					
 			</div>
 		
@@ -249,7 +267,21 @@
 			
 		}
 	});
-	});
+	
+	//Cloning the tr in  a table
+	
+	$(function() {
+    $(".add_a_row").click(function(){
+       var clone = $(this).closest('tr').clone(true);
+       
+       $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary">Remove</a>');
+       clone.insertAfter( $(this).closest('tr'));
+    });
+    $("table.table").on('click','.remove_a_row',function(){
+        $(this).parent().parent().remove();
+    });
+   });
+});
 	
 	
 	
