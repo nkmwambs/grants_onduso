@@ -182,46 +182,50 @@
 		 <div class="row">
 		        <div class="col-sm-12">
 			        <table id="" class="table">
-			            <tr>
-			            	<td colspan="5">
+			        	<tr >
+			        		
+			        		<td colspan="5">
 			            		<div class="form-group pull-right">
 			            			<label for='grand_total' class="control-label"><span style="font-weight: bold;">Grand Total:</span></label>
 			            			<input class="form-control" type="text" id="grand_total" name="grand_total" readonly/>
 			            		</div>
 			            	</td>
+			        	</tr>
+			        	<tr>
+			        		<td colspan="">
+			        			<b><?=get_phrase('raised_by:  ');?></b><i><?=$this->session->name;?></i>
+			        		</td>
+			        		<td colspan="">Approved by:_________________</td>
+			        	</tr>
+			            <tr>
+			            	<td></td><td></td>
+			            	<td colspan="">
+			            		<div class="form-group pull-right">
+			            			
+			            			<br>
+			            			<a href="#"   id="resetBtn" class="btn btn-primary btn-icon icon-left hidden-print pull-right" disabled="disabled"/>
+			            		     <?php echo get_phrase('reset');?>
+			            		      <i class="entypo-cancel-circled"></i>
+				                    </a>
+			            		</div>
+			            	</td>
+			            	
+			            	<td>
+			            		<div class="form-group pull-right">
+			            			
+			            			<br>
+			            			<button type="submit" id="btn_post_voucher" class="btn btn-primary btn-icon icon-left hidden-print pull-right" disabled="disabled"/>
+			            		       <?php echo get_phrase('post_voucher');?>
+				                        <i class="entypo-thumbs-up"></i>
+				                    </button>
+			            		</div>
+			            	</td>
+			            	
+			            	
 			            </tr>
 			        </table>
 			    </div> 
-		   </div>
-		   
-		   <div class="row">
-			<div class="col-sm-12">
-				<a href="#"   id="resetBtn" class="btn btn-default btn-icon icon-left hidden-print pull-left">
-				      <?php echo get_phrase('reset');?>
-				     <i class="entypo-cancel-circled"></i>
-				</a>
-						
-				<button type="submit" id="btn_post_voucher" class="btn btn-default btn-icon icon-left hidden-print pull-left">
-				     <?php echo get_phrase('post_voucher');?>
-				     <i class="entypo-thumbs-up"></i>
-				</button>
-				
-		
-				<div style="display: none" id='btnDelRow' class="btn btn-default btn-icon icon-left hidden-print pull-left">
-				      <?php echo get_phrase('remove_item_row');?>
-				     <i class="entypo-minus-circled"></i>
-				</div>					
-						
-				<!-- <div id='addrow' class="btn btn-default btn-icon icon-left hidden-print pull-left">
-				      <?php echo get_phrase('new_item_row');?>
-				     <i class="entypo-plus-circled"></i>
-				</div> -->
-					
-			</div>
-		
-		</div>
-		    
-				
+		   </div>	
 
 		</form>    
 	</div>
@@ -275,8 +279,6 @@
 		 
 		 $('#voucher_cheque_number').val('');
 		 
-			
-			
 		}
 		else{
 		//Find the cheque no and switch divs and remove hidden
