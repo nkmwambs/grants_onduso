@@ -295,7 +295,12 @@
 	
 	$(function() {
     $(".add_a_row").click(function(){
+    
        var clone = $(this).closest('tr').clone(true);
+       
+       //Clear the text boxes after clone
+       clone.find("input:text").val("").end();
+       
        //modfy the dom
        $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary hidden-print">Remove</a>');
        clone.insertAfter( $(this).closest('tr'));
@@ -305,9 +310,6 @@
     });
    });
 });
-	
-	
-	
 </script>
 
 
