@@ -1,11 +1,11 @@
 
-<hr />
+<hr class='hidden-print'/>
 
 <div id="load_voucher">
-
-<div class="row">
+<div class="row hidden-print">
+	
 	<div class="col-sm-6">
-		<div class="form-group">
+		<div class="form-group ">
 			<label class="control-label col-sm-3">Search a Voucher</label>
 			<div class="col-sm-6">
 				<input type="text" class="form-control" id="Tracking_voucher_number_search" placeholder="Enter a voucher number" />
@@ -19,14 +19,14 @@
 	</div>
 </div>
 
-<hr />
+<hr class='hidden-print'/>
 	
-<div class="row">
+<div class="row ">
 	<div class="col-sm-12">
 	
 	<div class="panel panel-primary" data-collapsed="0">
        	<div class="panel-heading">
-           	<div class="panel-title" >
+           	<div class="panel-title hidden-print" >
            		<i class="entypo-plus-circled"></i>
 					<?php echo get_phrase('new_voucher');?>
            	</div>
@@ -45,6 +45,11 @@
 			            	<thead>
 				                <tr>
 				                    <th colspan="8"  style="text-align: center;"><?php echo '<b><u>PAYMENT VOUCHER</u></b>'; ?><br><b>CNTR-001</b></th>
+				                    <th>
+				                    	<div class="col-xs-12">
+				                           <button onclick="window.print();" class="btn btn-success btn-icon pull-right hidden-print"><i class="fa fa-print"></i><?=get_phrase('print');?></button>
+			                         </div>
+			                         </th>
 				                </tr>
 							</thead>
 							
