@@ -142,10 +142,7 @@
 		    
 		    	</div>
 		    </div>
-		    
-		    
-		    
-		    
+		   
 		    <div class="row">
 		    	<div class="col-xs-12">   
 			        <table id="voucher_detail_table" class="table table-bordered">
@@ -156,9 +153,9 @@
 				                <th class='hidden-print'><?php echo get_phrase('Action');?></th>
 				            </tr>
 				         </thead>
-				         <tbody>
+				         <tbody id='table_body_id'>
 				         	<!--This is the first row-->
-				         	 <tr>
+				         	 <tr id='rec-1'>
 				                <!-- <td><input type="checkbox"  name="remove_row[]"/> </td> -->
 				                <td><input class="form-control first_control" type="text"  name="description[]" readonly="readonly"/></td>
 				                <td><input class="form-control first_control" type="text"  name="quantity[]" readonly="readonly"/></td>
@@ -176,14 +173,16 @@
 				                	</select>
 				                </td>
 				                <td><input class="form-control first_control" type="text"  name="special_code[]" readonly="readonly"/></td>
-				                <td class='hidden-print'><a class="add_a_row btn btn-primary" href="javascript:void(0);" disabled="disabled">Add Row</a></td>
+				                <td class='hidden-print'><a class="btn btn-xs delete-record" data-id=""><i class="glyphicon glyphicon-trash"></i></a></td>
+				                <!-- <td class='hidden-print'><a class="add_a_row btn btn-primary" href="javascript:void(0);" disabled="disabled">Add Row</a></td> -->
 				            </tr>
 				         </tbody>   
 			        </table>
 			    </div>
 			</div> 
-		    
-		    
+			 <div class="well clearfix">
+               <a class="btn btn-primary pull-right hidden-print add_a_row" data-added="0" disabled="disabled"><i class="glyphicon glyphicon-plus"></i> Add Row</a>
+             </div>
 		 <div class="row">
 		        <div class="col-sm-12">
 			        <table id="" class="table">
@@ -252,6 +251,9 @@
         });
         	//Disable 'Add Row' button
         $('.add_a_row').attr('disabled',bolean_passed);
+        
+        $('#resetBtn').attr('disabled',bolean_passed);
+        $('#btn_post_voucher').attr('disabled',bolean_passed);
     }
 
     //Check first if the DOM has loaded before finding elements
@@ -296,24 +298,34 @@
 		}
 	});
 	
-	//Cloning the tr in  a table
-	
-	$(function() {
-    $(".add_a_row").click(function(){
-    
-       var clone = $(this).closest('tr').clone(true);
-       
-       //Clear the text boxes after clone
-       clone.find("input:text").val("").end();
-       
-       //modfy the dom
-       $("td:last-child", clone).html('<a  href="javascript:void(0);" class="remove_a_row btn btn-primary hidden-print">Remove</a>');
-       clone.insertAfter( $(this).closest('tr'));
-    });
-    $("table.table").on('click','.remove_a_row',function(){
-        $(this).parent().parent().remove();
-    });
+	//Cloning the tr in  a table or ADD row
+   $(document).delegate('a.add_a_row', 'click', function(e) {
+     
+     e.preventDefault();  
+     //get the last tr
+     var last_table_row = $('#voucher_detail_table tbody').find('tr').last();
+     
+     count = $('#voucher_detail_table >tbody >tr').length + 1,
+     
+     //Build the elements
+     element = null,    
+     element = last_table_row.clone();
+     
+     //Clear the text boxes of the cloned row
+     element.find("input:text").val("").end();
+     element.attr('id', 'rec-'+count);
+     element.find('.delete-record').attr('data-id', count);
+     element.appendTo('#table_body_id');
+     
+     //element.find('span.action').Html('<a class="btn btn-xs delete-record" data-id=""><i class="glyphicon glyphicon-trash"></i></a>');
+     
    });
+   //Delete  a table Row
+   $(document).delegate('a.delete-record', 'click', function(e) {
+      e.preventDefault();   
+      var id = $(this).attr('data-id');
+      $('#rec-' + id).remove();
+});
 });
 </script>
 
